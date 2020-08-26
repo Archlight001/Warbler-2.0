@@ -6,6 +6,7 @@ const userauthRoutes = require("./routes/userauth");
 const messageRoutes = require("./routes/messages");
 const upload = require("express-fileupload");
 const db = require("./models");
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const app = express();
 const PORT = 8082;
@@ -17,14 +18,19 @@ app.use(upload());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/userauth", userauthRoutes);
-app.use("/api/users/:id/messages", messageRoutes);
+app.use(
+  "/api/users/:id/messages",
+  loginRequired,
+  ensureCorrectUser,
+  messageRoutes
+);
 
-app.get("/api/messages",async function (req, res, next) {
+app.get("/api/messages", loginRequired, async function (req, res, next) {
   try {
     let allMessages = await db.Message.find()
       .sort({ createdAt: "desc" })
       .populate("user", { username: true, profilePicUrl: true });
-      return res.json(allMessages);
+    return res.json(allMessages);
   } catch (error) {
     return next(err);
   }
