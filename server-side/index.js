@@ -10,16 +10,25 @@ const db = require("./models");
 const app = express();
 const PORT = 8082;
 
-process.env['ROOT']=__dirname;
+process.env["ROOT"] = __dirname;
 
 app.use(cors());
 app.use(upload());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/userauth",userauthRoutes);
-app.use("/api/users/:id/messages",messageRoutes);
+app.use("/api/userauth", userauthRoutes);
+app.use("/api/users/:id/messages", messageRoutes);
 
-
+app.get("/api/messages",async function (req, res, next) {
+  try {
+    let allMessages = await db.Message.find()
+      .sort({ createdAt: "desc" })
+      .populate("user", { username: true, profilePicUrl: true });
+      return res.json(allMessages);
+  } catch (error) {
+    return next(err);
+  }
+});
 
 //Error Handling
 app.use(function (req, res, next) {
