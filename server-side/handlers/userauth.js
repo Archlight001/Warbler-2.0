@@ -2,12 +2,43 @@ const db = require("../models");
 const jwt = require("jsonwebtoken");
 const { imageFilter } = require("../helpers/image_validation");
 
-exports.signin = async function (req, res, next) {};
+exports.signin = async function (req, res, next) {
+  try {
+    let email = req.body.email;
+    let user = await db.User.findOne({ email: email });
+    let { id, username, profileImageUrl } = user;
+    let isMatch = await user.comparePasswords(req.body.password);
+    if (isMatch) {
+      let token = jwt.sign(
+        { id, username, profileImageUrl },
+        process.env.SECRET_KEY
+      );
+      return res.status(200).json({
+        id,
+        username,
+        profileImageUrl,
+        token,
+      });
+    } else {
+      return next({
+        status: 400,
+        message: "Invalid Email/Password",
+      });
+    }
+    console.log(user);
+  } catch (error) {
+    return next({ status: 400, message: "Invalid Email/Password" });
+  }
+};
 
 exports.signup = async function (req, res, next) {
   const image = req.files.profile_pic;
   const imageFormat = image.mimetype;
   let checkImageFormat = imageFilter(req, imageFormat);
+  let newImageName = `${req.body.username}${image.name.slice(
+    image.name.lastIndexOf(".")
+  )}`;
+  let imageUrl = `${process.env.ROOT}/uploads/${newImageName}`;
 
   //check if file attached is an image
   if (!checkImageFormat.status) {
@@ -17,12 +48,6 @@ exports.signup = async function (req, res, next) {
   }
 
   try {
-    let newImageName = `${req.body.username}${image.name.slice(
-      image.name.lastIndexOf(".")
-    )}`;
-
-    let imageUrl = `${process.env.ROOT}/uploads/${newImageName}`;
-
     let newUser = {
       ...req.body,
       profileImageUrl: imageUrl,

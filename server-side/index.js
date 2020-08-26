@@ -2,10 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const errorHandler = require("./handlers/error");
-const db = require("./models");
-const userauthRoutes = require("./routes/userauth")
-const path = require("path");
+const userauthRoutes = require("./routes/userauth");
+const messageRoutes = require("./routes/messages");
 const upload = require("express-fileupload");
+const db = require("./models");
 
 const app = express();
 const PORT = 8082;
@@ -17,10 +17,7 @@ app.use(upload());
 app.use(express.urlencoded({ extended: true}));
 
 app.use("/api/userauth",userauthRoutes);
-
-app.get("/form",function(req,res){
-  res.sendFile(path.join(__dirname,"index.html"))
-})
+app.use("/api/users/:id/messages",messageRoutes);
 
 
 
