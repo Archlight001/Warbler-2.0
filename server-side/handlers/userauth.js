@@ -5,6 +5,7 @@ const { imageFilter } = require("../helpers/image_validation");
 exports.signin = async function (req, res, next) {
   try {
     let email = req.body.email;
+    console.log(req.body);
     let user = await db.User.findOne({ email: email });
     let { id, username, profileImageUrl } = user;
     let isMatch = await user.comparePasswords(req.body.password);
@@ -27,7 +28,7 @@ exports.signin = async function (req, res, next) {
     }
     console.log(user);
   } catch (error) {
-    return next({ status: 400, message: "Invalid Email/Password" });
+    return next({ status: 400, message: "An error has occured, Please try again later" });
   }
 };
 
