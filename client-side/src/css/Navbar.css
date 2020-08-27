@@ -1,0 +1,35 @@
+.navbar {
+    margin-bottom: 1rem;
+    background: rgb(116, 205, 255);
+    background: radial-gradient(
+      circle,
+      rgba(116, 205, 255, 1) 15%,
+      rgba(114, 215, 151, 1) 90%
+    );
+    background-size: 100% 100%;
+  }
+  
+  .navbar a {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .navbar a:hover {
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .navbar-brand > img {
+    display: inline-block;
+    width: 20px;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    border-radius: 2px;
+  }
+  
+  ul.nav.navbar-nav li {
+    margin: 0 0.5rem;
+  }
+  
+ 

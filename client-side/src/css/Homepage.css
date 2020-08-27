@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* z-index: -1; */
+    z-index: -1;
     background-image: url("../images/signed-out-home.png");
     text-align: center;
     padding: 1rem;
