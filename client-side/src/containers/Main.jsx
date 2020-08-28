@@ -10,7 +10,7 @@ function Main(props) {
   return (
     <div className="container">
       <Route exact path="/">
-        <Homepage />
+        <Homepage {...props} currentUser={currentUser} />
       </Route>
 
       <Route exact path="/signup">

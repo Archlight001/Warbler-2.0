@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Authform({
@@ -50,7 +50,7 @@ export default function Authform({
                 <div className="alert alert-danger">{error.message}</div>
               )}
 
-              {errorMessage != "" && (
+              {errorMessage !== "" && (
                 <div className="alert alert-danger">{errorMessage}</div>
               )}
 

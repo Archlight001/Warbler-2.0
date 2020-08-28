@@ -2,8 +2,15 @@ import React from "react";
 import "../css/Navbar.css";
 import { Link } from "react-router-dom";
 import Logo from "../images/warbler-logo.png";
+import { connect } from "react-redux";
+import { logout } from "../store/actions/auth";
 
-export default function Navbar() {
+function Navbar({ currentUser, logout:backtoHome }) {
+  function logout(e) {
+    debugger;
+    e.preventDefault();
+    backtoHome();
+  }
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -13,16 +20,37 @@ export default function Navbar() {
               <img src={Logo} alt="Warbler Home" />
             </Link>
           </div>
-          <ul className="nav navbar-nav navbar-right">
-            <li>
-              <Link to="/signup">Sign up</Link>
-            </li>
-            <li>
-              <Link to="/signin">Log in</Link>
-            </li>
-          </ul>
+          {currentUser.isAuthenticated ? (
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <Link to={`/users/${currentUser.user.id}/messages/new`}>
+                  New Message
+                </Link>
+              </li>
+              <li>
+                <a onClick={logout}>Log out</a>
+              </li>
+            </ul>
+          ) : (
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <Link to="/signup">Sign up</Link>
+              </li>
+              <li>
+                <Link to="/signin">Log in</Link>
+              </li>
+            </ul>
+          )}
         </div>
       </nav>
     </div>
   );
 }
+
+function mapReduxStatetoProps(state) {
+  return {
+    currentUser: state.currentUser,
+  };
+}
+
+export default connect(mapReduxStatetoProps, { logout })(Navbar);
