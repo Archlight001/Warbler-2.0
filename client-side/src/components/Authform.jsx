@@ -5,12 +5,12 @@ export default function Authform({
   signup,
   buttonText,
   heading,
-  errors,
+  error,
   history,
   removeError,
   onAuth,
 }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   function onSubmit(data) {
     const formData = new FormData(document.getElementById("form"));
@@ -31,6 +31,14 @@ export default function Authform({
     removeError();
   });
 
+  let errorMessage = "";
+  if (errors) {
+    if (errors.username) errorMessage = errors.username.message;
+    else if (errors.password) errorMessage = errors.password.message;
+    else if (errors.email) errorMessage = errors.email.message;
+    else if (errors.profile_pic) errorMessage = errors.profile_pic.message;
+  }
+
   return (
     <div>
       <div>
@@ -38,15 +46,20 @@ export default function Authform({
           <div className="col-md-6">
             <form id="form" onSubmit={handleSubmit(onSubmit)}>
               <h2>{heading}</h2>
-              {errors.message && (
-                <div className="alert alert-danger">{errors.message}</div>
+              {error.message && (
+                <div className="alert alert-danger">{error.message}</div>
               )}
+
+              {errorMessage != "" && (
+                <div className="alert alert-danger">{errorMessage}</div>
+              )}
+
               <label htmlFor="email">Email Address:</label>
               <input
                 className="form-control"
                 id="email"
                 name="email"
-                ref={register}
+                ref={register({ required: "Email Address Required" })}
                 type="email"
               />
 
@@ -55,7 +68,13 @@ export default function Authform({
                 className="form-control"
                 id="password"
                 name="password"
-                ref={register}
+                ref={register({
+                  required: "Password field is required",
+                  minLength: {
+                    value: 8,
+                    message: "Your password is too short",
+                  },
+                })}
                 type="password"
               />
 
@@ -66,7 +85,7 @@ export default function Authform({
                     className="form-control"
                     id="username"
                     name="username"
-                    ref={register}
+                    ref={register({ required: "Username is required" })}
                     type="text"
                   />
 
@@ -75,7 +94,9 @@ export default function Authform({
                     className="form-control"
                     id="image-url"
                     name="profile_pic"
-                    ref={register}
+                    ref={register({
+                      required: "Please select a profile image",
+                    })}
                     type="file"
                   />
                 </div>

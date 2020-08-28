@@ -17,7 +17,7 @@ function Main(props) {
         <Authform
           {...props}
           removeError={removeError}
-          errors={errors}
+          error={errors}
           onAuth={authUser}
           heading="Join Warbler Today."
           buttonText="Sign me Up"
@@ -29,7 +29,7 @@ function Main(props) {
         <Authform
           {...props}
           removeError={removeError}
-          errors={errors}
+          error={errors}
           onAuth={authUser}
           heading="Welcome back."
           buttonText="Sign in"
