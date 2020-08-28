@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Authform({
   signup,
@@ -7,23 +8,16 @@ export default function Authform({
   errors,
   history,
   removeError,
-  onAuth
+  onAuth,
 }) {
-  const [state, setState] = useState({
-    email: "",
-    username: "",
-    password: ""
-  });
+  const { register, handleSubmit } = useForm();
 
-  function handleChange(e) {
-    setState({ ...state, [e.target.name]: e.target.value });
-    console.log(e.target);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
+  function onSubmit(data) {
+    const formData = new FormData(document.getElementById("form"));
+    // formData.append("profile_pic",data.profile_pic[0]);
+    // formData.append("username",data.username);
     const authType = signup ? "signup" : "signin";
-    onAuth(authType, state)
+    onAuth(authType, formData)
       .then(() => {
         history.push("/");
       })
@@ -33,17 +27,16 @@ export default function Authform({
   }
 
   //Remove any error message when component is re-rendered
-  history.listen(()=>{
+  history.listen(() => {
     removeError();
-  })
+  });
 
-  const { email, username, password } = state;
   return (
     <div>
       <div>
         <div className="row justify-content-md-center text-center">
           <div className="col-md-6">
-            <form onSubmit={handleSubmit} >
+            <form id="form" onSubmit={handleSubmit(onSubmit)}>
               <h2>{heading}</h2>
               {errors.message && (
                 <div className="alert alert-danger">{errors.message}</div>
@@ -53,8 +46,7 @@ export default function Authform({
                 className="form-control"
                 id="email"
                 name="email"
-                onChange={handleChange}
-                value={email}
+                ref={register}
                 type="email"
               />
 
@@ -63,7 +55,7 @@ export default function Authform({
                 className="form-control"
                 id="password"
                 name="password"
-                onChange={handleChange}
+                ref={register}
                 type="password"
               />
 
@@ -74,19 +66,18 @@ export default function Authform({
                     className="form-control"
                     id="username"
                     name="username"
-                    onChange={handleChange}
-                    value={username}
+                    ref={register}
                     type="text"
                   />
 
-                  {/* <label htmlFor="image-url">Profile Image</label>
+                  <label htmlFor="image-url">Profile Image</label>
                   <input
                     className="form-control"
                     id="image-url"
                     name="profile_pic"
-                    onChange={handleChange}
+                    ref={register}
                     type="file"
-                  /> */}
+                  />
                 </div>
               )}
               <button

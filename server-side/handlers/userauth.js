@@ -26,29 +26,28 @@ exports.signin = async function (req, res, next) {
         message: "Invalid Email/Password",
       });
     }
-    console.log(user);
   } catch (error) {
-    return next({ status: 400, message: "An error has occured, Please try again later" });
+    return next({ status: 400, message: "Invalid Email address" });
   }
 };
 
 exports.signup = async function (req, res, next) {
-  const image = req.files.profile_pic;
-  const imageFormat = image.mimetype;
-  let checkImageFormat = imageFilter(req, imageFormat);
-  let newImageName = `${req.body.username}${image.name.slice(
-    image.name.lastIndexOf(".")
-  )}`;
-  let imageUrl = `${process.env.ROOT}/uploads/${newImageName}`;
-
-  //check if file attached is an image
-  if (!checkImageFormat.status) {
-    return next({
-      message: checkImageFormat.message,
-    });
-  }
-
   try {
+    const image = req.files.profile_pic;
+    const imageFormat = image.mimetype;
+    let checkImageFormat = imageFilter(req, imageFormat);
+    let newImageName = `${req.body.username}${image.name.slice(
+      image.name.lastIndexOf(".")
+    )}`;
+    let imageUrl = `${process.env.ROOT}/uploads/${newImageName}`;
+
+    //check if file attached is an image
+    if (!checkImageFormat.status) {
+      return next({
+        message: checkImageFormat.message,
+      });
+    }
+
     let newUser = {
       ...req.body,
       profileImageUrl: imageUrl,
@@ -56,7 +55,6 @@ exports.signup = async function (req, res, next) {
 
     //Create new User document
     let user = await db.User.create(newUser);
-
     //Move image to location
     image.mv(`${imageUrl}`, function (err) {
       if (err) {
@@ -84,7 +82,6 @@ exports.signup = async function (req, res, next) {
     if (error.code === 11000) {
       error.message = "Sorry that username and/or email is taken";
     }
-
     return next({
       status: 400,
       message: error.message,

@@ -4,6 +4,7 @@ const cors = require("cors");
 const errorHandler = require("./handlers/error");
 const userauthRoutes = require("./routes/userauth");
 const messageRoutes = require("./routes/messages");
+const bodyParser = require('body-parser')
 const upload = require("express-fileupload");
 const db = require("./models");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
@@ -14,8 +15,10 @@ const PORT = 8082;
 process.env["ROOT"] = __dirname;
 
 app.use(cors());
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: false }));
 app.use(upload());
-app.use(express.urlencoded({ extended: true }));
+
 
 app.use("/api/userauth", userauthRoutes);
 app.use(
