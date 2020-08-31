@@ -33,7 +33,7 @@ app.get("/api/messages", loginRequired, async function (req, res, next) {
   try {
     let allMessages = await db.Message.find()
       .sort({ createdAt: "desc" })
-      .populate("user", { username: true, profilePicUrl: true });
+      .populate("user", { username: true, profileImageUrl: true });
     return res.json(allMessages);
   } catch (error) {
     return next(err);
