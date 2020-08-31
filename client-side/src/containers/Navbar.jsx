@@ -7,7 +7,6 @@ import { logout } from "../store/actions/auth";
 
 function Navbar({ currentUser, logout:backtoHome }) {
   function logout(e) {
-    debugger;
     e.preventDefault();
     backtoHome();
   }
