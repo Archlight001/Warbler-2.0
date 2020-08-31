@@ -9,10 +9,11 @@ export default function UserAside({ profileImageUrl, username }) {
       <div className="panel panel-default">
         <div className="panel-body">
           <img
-            src={profileImageUrl || DefaultProfileImg}
+            src={`http://${profileImageUrl}` || DefaultProfileImg}
             alt={username}
             width="200"
             height="200"
+            target="_blank"
             className="img-thumbnail"
           />
           <h4>{username}</h4>

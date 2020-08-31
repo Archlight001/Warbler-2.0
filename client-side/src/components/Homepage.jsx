@@ -5,7 +5,6 @@ import MessageTimeline from "../containers/MessageTimeline";
 
 
 export default function Homepage({currentUser}) {
-  console.log(currentUser);
   if(!currentUser.isAuthenticated){
     return (
       <div className="home-hero">

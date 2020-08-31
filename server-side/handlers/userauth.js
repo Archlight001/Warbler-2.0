@@ -33,13 +33,14 @@ exports.signin = async function (req, res, next) {
 
 exports.signup = async function (req, res, next) {
   try {
+    let hostname = req.headers.host;
     const image = req.files.profile_pic;
     const imageFormat = image.mimetype;
     let checkImageFormat = imageFilter(req, imageFormat);
     let newImageName = `${req.body.username}${image.name.slice(
       image.name.lastIndexOf(".")
     )}`;
-    let imageUrl = `${process.env.ROOT}/uploads/${newImageName}`;
+    let imageUrl = `${hostname}/uploads/${newImageName}`;
 
     //check if file attached is an image
     if (!checkImageFormat.status) {
@@ -56,7 +57,7 @@ exports.signup = async function (req, res, next) {
     //Create new User document
     let user = await db.User.create(newUser);
     //Move image to location
-    image.mv(`${imageUrl}`, function (err) {
+    image.mv(`${process.env.ROOT}/public/uploads/${newImageName}`, function (err) {
       if (err) {
         return next(err);
       } else {

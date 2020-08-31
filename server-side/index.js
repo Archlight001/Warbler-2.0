@@ -16,6 +16,7 @@ process.env["ROOT"] = __dirname;
 
 app.use(cors());
 app.use(bodyParser.json())
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(upload());
 
