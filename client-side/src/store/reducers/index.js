@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
 import errors from "./errors";
 import currentUser from "./currentUser";
-import messages from "./messages";
+import posts from "./posts";
 
-const rootReducer = combineReducers({errors,currentUser,messages})
+const rootReducer = combineReducers({errors,currentUser,posts})
 
 export default rootReducer;

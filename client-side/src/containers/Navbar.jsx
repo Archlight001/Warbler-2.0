@@ -22,8 +22,8 @@ function Navbar({ currentUser, logout:backtoHome }) {
           {currentUser.isAuthenticated ? (
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to={`/users/${currentUser.user.id}/messages/new`}>
-                  New Message
+                <Link to={`/users/${currentUser.user.id}/posts/new`}>
+                  New Post
                 </Link>
               </li>
               <li>

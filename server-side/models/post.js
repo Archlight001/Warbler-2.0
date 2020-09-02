@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./user");
 
-const messageSchema = mongoose.Schema(
+const postSchema = mongoose.Schema(
   {
     text: {
       type: String,
@@ -18,15 +18,15 @@ const messageSchema = mongoose.Schema(
   }
 );
 
-messageSchema.pre("remove",async function(next){
+postSchema.pre("remove",async function(next){
   try {
     let user = await User.findById(this.user);
-    user.messages.remove(this.id);
+    user.posts.remove(this.id);
     await user.save();
   } catch (error) {
     return next(error)
   }  
 })
 
-let Message = mongoose.model("Message", messageSchema);
-module.exports = Message;
+let Post = mongoose.model("Post", postSchema);
+module.exports = Post;

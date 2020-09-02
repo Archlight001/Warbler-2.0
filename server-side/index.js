@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const errorHandler = require("./handlers/error");
 const userauthRoutes = require("./routes/userauth");
-const messageRoutes = require("./routes/messages");
+const postRoutes = require("./routes/posts");
 const bodyParser = require('body-parser')
 const upload = require("express-fileupload");
 const db = require("./models");
@@ -23,18 +23,16 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use(
-  "/api/users/:id/messages",
-  loginRequired,
-  ensureCorrectUser,
-  messageRoutes
+  "/api/users/:id/posts",
+  postRoutes
 );
 
-app.get("/api/messages", loginRequired, async function (req, res, next) {
+app.get("/api/posts", loginRequired, async function (req, res, next) {
   try {
-    let allMessages = await db.Message.find()
+    let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })
       .populate("user", { username: true, profileImageUrl: true });
-    return res.json(allMessages);
+    return res.json(allPosts);
   } catch (error) {
     return next(err);
   }

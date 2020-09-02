@@ -21,10 +21,10 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  messages: [
+  posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Message",
+      ref: "Post",
     },
   ],
 });

@@ -8,7 +8,7 @@ export default function MessageItem({
   profileImageUrl,
   text,
   username,
-  removeMessage,
+  removePost,
   isCorrectUser,
 }) {
   return (
@@ -30,7 +30,7 @@ export default function MessageItem({
           </span>
           <p>{text}</p>
           {isCorrectUser && (
-            <a className="btn btn-danger" onClick={removeMessage}>
+            <a className="btn btn-danger" onClick={removePost}>
               Delete
             </a>
           )}

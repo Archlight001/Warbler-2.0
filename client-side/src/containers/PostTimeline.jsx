@@ -1,12 +1,12 @@
 import React from "react";
 import UserAside from "../components/UserAside";
-import MessageList from "./MessageList";
+import PostList from "./PostList";
 
-export default function MessageTimeline({username,profileImageUrl}){
+export default function PostTimeline({username,profileImageUrl}){
     return(
         <div className="row">
             <UserAside username={username} profileImageUrl={profileImageUrl} />
-            <MessageList />
+            <PostList />
         </div>
     )
 }

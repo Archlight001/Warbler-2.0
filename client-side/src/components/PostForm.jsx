@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { postNewMessage } from "../store/actions/messages";
+import { sendNewPost } from "../store/actions/posts";
 import { useForm } from "react-hook-form";
 
-function MessageForm(props) {
+function PostForm(props) {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    props.postNewMessage(data.message);
+    props.sendNewPost(data.post);
     props.history.push("/");
   };
 
@@ -22,12 +22,12 @@ function MessageForm(props) {
       <input
         type="text"
         className="form-control"
-        name="message"
-        id="message"
-        ref={register({ required: "Please input a new Message" })}
+        name="post"
+        id="post"
+        ref={register({ required: "Please input a new Post" })}
       />
       <button type="submit" style={style} className="btn btn-success">
-        Add my message!
+        Add my Post!
       </button>
     </form>
   );
@@ -39,4 +39,4 @@ function mapReduxStatetoProps(state) {
   };
 }
 
-export default connect(mapReduxStatetoProps, { postNewMessage })(MessageForm);
+export default connect(mapReduxStatetoProps, { sendNewPost })(PostForm);

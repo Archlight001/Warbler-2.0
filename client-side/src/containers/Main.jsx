@@ -6,7 +6,7 @@ import Homepage from "../components/Homepage";
 import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth from "../hocs/withAuth";
-import MessageForm from "../components/MessageForm";
+import PostForm from "../components/PostForm";
 function Main(props) {
   const { authUser, errors, removeError, currentUser } = props;
   return (
@@ -38,7 +38,7 @@ function Main(props) {
         />
       </Route>
 
-      <Route path="/users/:id/messages/new" component={withAuth(MessageForm)}/>
+      <Route path="/users/:id/posts/new" component={withAuth(PostForm)}/>
     </div>
   );
 }

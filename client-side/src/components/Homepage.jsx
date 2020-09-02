@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/Homepage.css";
 import {Link} from "react-router-dom";
-import MessageTimeline from "../containers/MessageTimeline";
+import PostTimeline from "../containers/PostTimeline";
 
 
 export default function Homepage({currentUser}) {
@@ -18,7 +18,7 @@ export default function Homepage({currentUser}) {
   }else{
     return (
       <div>
-        <MessageTimeline profileImageUrl ={currentUser.user.profileImageUrl} username={currentUser.user.username} />
+        <PostTimeline profileImageUrl ={currentUser.user.profileImageUrl} username={currentUser.user.username} />
       </div>
     )
   }
