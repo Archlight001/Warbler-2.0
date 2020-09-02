@@ -27,7 +27,7 @@ app.use(
   postRoutes
 );
 
-app.get("/api/posts", loginRequired, async function (req, res, next) {
+app.get("/api/posts", async function (req, res, next) {
   try {
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })

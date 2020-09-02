@@ -1,6 +1,6 @@
 const db = require("../models");
 const jwt = require("jsonwebtoken");
-const { imageFilter } = require("../helpers/image_validation");
+const { validate } = require("../helpers/media_validation");
 
 exports.signin = async function (req, res, next) {
   try {
@@ -35,8 +35,7 @@ exports.signup = async function (req, res, next) {
   try {
     let hostname = req.headers.host;
     const image = req.files.profile_pic;
-    const imageFormat = image.mimetype;
-    let checkImageFormat = imageFilter(req, imageFormat);
+    let checkImageFormat = validate(image);
     let newImageName = `${req.body.username}${image.name.slice(
       image.name.lastIndexOf(".")
     )}`;

@@ -8,6 +8,9 @@ const postSchema = mongoose.Schema(
       required: true,
       maxlength: 160,
     },
+    postMediaUrl: {
+      type: Array,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -18,15 +21,15 @@ const postSchema = mongoose.Schema(
   }
 );
 
-postSchema.pre("remove",async function(next){
+postSchema.pre("remove", async function (next) {
   try {
     let user = await User.findById(this.user);
     user.posts.remove(this.id);
     await user.save();
   } catch (error) {
-    return next(error)
-  }  
-})
+    return next(error);
+  }
+});
 
 let Post = mongoose.model("Post", postSchema);
 module.exports = Post;
