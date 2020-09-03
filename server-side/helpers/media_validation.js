@@ -19,7 +19,7 @@ module.exports.validate= function (file) {
   };
 
 
-function imageFilter (file) {
+ function imageFilter (file) {
   // Accept images only
   if (!file.match(/\/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
     return {
@@ -46,3 +46,4 @@ function videoFilter (file) {
   };
 };
 
+exports.imageFilter = imageFilter;
