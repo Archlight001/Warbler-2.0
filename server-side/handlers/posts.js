@@ -1,6 +1,7 @@
 const db = require("../models");
 const { validate } = require("../helpers/media_validation");
 const { createMediaUrl } = require("../helpers/createMediaUrl");
+const fs = require("fs");
 
 exports.createPost = async function (req, res, next) {
   try {
@@ -18,7 +19,9 @@ exports.createPost = async function (req, res, next) {
 
       if (media[0] !== undefined) {
         for (let i = 0; i < media.length; i++) {
-          let mediaExtension = media[i].name.slice(media[i].name.lastIndexOf("."));
+          let mediaExtension = media[i].name.slice(
+            media[i].name.lastIndexOf(".")
+          );
           let newMedia = createMediaUrl(mediaExtension, hostname);
           mediaFiles.push(newMedia[0]);
           mediaNames.push(newMedia[1]);
@@ -81,8 +84,33 @@ exports.getPost = async function (req, res, next) {
 exports.deletePost = async function (req, res, next) {
   try {
     let foundPost = await db.Post.findById(req.params.post_id);
-    await foundPost.remove();
-    return res.json(foundPost);
+    await foundPost.remove((err, post) => {
+      if (err) {
+        return next(err);
+      }
+      if (post.postMediaUrl.length > 1) {
+        for (let i = 0; i < post.postMediaUrl.length; i++) {
+          fs.unlink(
+            `${process.env.ROOT}/public${post.postMediaUrl[i].slice(
+              post.postMediaUrl[i].indexOf("/")
+            )}`,
+            function () {
+              console.log("File deleted");
+            }
+          );
+        }
+      } else {
+        fs.unlink(
+          `${process.env.ROOT}/public${post.postMediaUrl[0].slice(
+            post.postMediaUrl[0].indexOf("/")
+          )}`,
+          function () {
+            console.log("File deleted");
+          }
+        );
+      }
+      return res.json(post);
+    });
   } catch (error) {
     return next(error);
   }
