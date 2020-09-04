@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import PostMedia from "./PostMedia";
@@ -13,6 +13,8 @@ export default function MessageItem({
   removePost,
   isCorrectUser,
 }) {
+
+  
   let media = [];
   if (postMedia.length === 1) {
     media =  <PostMedia key={1} postMedia={postMedia[0]} stretch />
@@ -21,6 +23,7 @@ export default function MessageItem({
       return <PostMedia key={index} postMedia={value} />;
     });
   }
+
   return (
     <div>
       <li className="list-group-item">
@@ -41,6 +44,8 @@ export default function MessageItem({
           <p>{text}</p>
 
           {postMedia.length !== 0 && <div className="mediaDiv">{media}</div>}
+          
+          
 
           {isCorrectUser && (
             <a className="btn btn-danger" onClick={removePost}>

@@ -39,3 +39,20 @@
     max-height: 100%;
   }
 
+  .enlargeMedia{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position:absolute;
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
+  }
+
+  .enlargeMedia img{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%
+  }
