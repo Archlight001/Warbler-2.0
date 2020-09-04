@@ -26,7 +26,7 @@ function PostForm(props) {
         name="text"
         ref={register({ required: "Please input a new Post" })}
       />
-      <input type="file" name="media" id="media" ref={register}/>
+      <input type="file" name="media" id="media" ref={register} multiple/>
       <button type="submit" style={style} className="btn btn-success">
         Add my Post!
       </button>
