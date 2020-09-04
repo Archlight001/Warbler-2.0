@@ -23,11 +23,11 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use(
-  "/api/users/:id/posts",
+  "/api/users/:id/posts",loginRequired,ensureCorrectUser,
   postRoutes
 );
 
-app.get("/api/posts", async function (req, res, next) {
+app.get("/api/posts",loginRequired, async function (req, res, next) {
   try {
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })

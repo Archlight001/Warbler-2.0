@@ -6,12 +6,14 @@ const fs = require("fs");
 exports.createPost = async function (req, res, next) {
   try {
     let hostname = req.headers.host;
-    let media = req.files.media;
+    console.log();
+
     let mediaFiles = [];
     let mediaName = "";
     let mediaNames = [];
 
-    if (media !== undefined) {
+    if (req.files) {
+      let media = req.files.media;
       const validateFile = validate(req.files.media);
       if (!validateFile.status) {
         return next(validateFile);
@@ -44,10 +46,22 @@ exports.createPost = async function (req, res, next) {
     foundUser.posts.push(post.id);
     await foundUser.save();
 
-    if (mediaNames.length !== 0) {
-      for (let i = 0; i < mediaNames.length; i++) {
-        media[i].mv(
-          `${process.env.ROOT}/public/posts/${mediaNames[i]}`,
+    if (req.files) {
+      let media = req.files.media;
+      if (mediaNames.length !== 0) {
+        for (let i = 0; i < mediaNames.length; i++) {
+          media[i].mv(
+            `${process.env.ROOT}/public/posts/${mediaNames[i]}`,
+            async function (err) {
+              if (err) {
+                return next(err);
+              }
+            }
+          );
+        }
+      } else {
+        media.mv(
+          `${process.env.ROOT}/public/posts/${mediaName}`,
           async function (err) {
             if (err) {
               return next(err);
@@ -55,14 +69,6 @@ exports.createPost = async function (req, res, next) {
           }
         );
       }
-    } else {
-      media.mv(`${process.env.ROOT}/public/posts/${mediaName}`, async function (
-        err
-      ) {
-        if (err) {
-          return next(err);
-        }
-      });
     }
 
     let foundPost = await db.Post.findById(post.id).populate("user");
@@ -88,7 +94,7 @@ exports.deletePost = async function (req, res, next) {
       if (err) {
         return next(err);
       }
-      if (post.postMediaUrl.length > 1) {
+      if (post.postMediaUrl.length > 1 && post.postMediaUrl.length !== 0) {
         for (let i = 0; i < post.postMediaUrl.length; i++) {
           fs.unlink(
             `${process.env.ROOT}/public${post.postMediaUrl[i].slice(
@@ -100,14 +106,16 @@ exports.deletePost = async function (req, res, next) {
           );
         }
       } else {
-        fs.unlink(
-          `${process.env.ROOT}/public${post.postMediaUrl[0].slice(
-            post.postMediaUrl[0].indexOf("/")
-          )}`,
-          function () {
-            console.log("File deleted");
-          }
-        );
+        if (post.postMediaUrl.length !== 0) {
+          fs.unlink(
+            `${process.env.ROOT}/public${post.postMediaUrl[0].slice(
+              post.postMediaUrl[0].indexOf("/")
+            )}`,
+            function () {
+              console.log("File deleted");
+            }
+          );
+        }
       }
       return res.json(post);
     });

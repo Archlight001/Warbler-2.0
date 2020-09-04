@@ -7,14 +7,15 @@ function PostForm(props) {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    props.sendNewPost(data.post);
+    let formData = new FormData(document.getElementById("postForm"));
+    props.sendNewPost(formData);
     props.history.push("/");
   };
 
   const style ={float:"right"}
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
       {props.errors.message || errors.message  && (
         <div className="alert alert-danger">{props.errors.message || errors.message.message}</div>
       )}
@@ -22,10 +23,10 @@ function PostForm(props) {
       <input
         type="text"
         className="form-control"
-        name="post"
-        id="post"
+        name="text"
         ref={register({ required: "Please input a new Post" })}
       />
+      <input type="file" name="media" id="media" ref={register}/>
       <button type="submit" style={style} className="btn btn-success">
         Add my Post!
       </button>

@@ -15,6 +15,7 @@ function PostList(props) {
       key={m._id}
       date={m.createAt}
       text={m.text}
+      postMedia={m.postMediaUrl || "none"}
       username={m.user.username}
       profileImageUrl={m.user.profileImageUrl}
       removePost={removePost.bind(this, m.user._id, m._id)}

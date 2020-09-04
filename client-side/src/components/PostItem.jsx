@@ -7,6 +7,7 @@ export default function MessageItem({
   date,
   profileImageUrl,
   text,
+  postMedia,
   username,
   removePost,
   isCorrectUser,
@@ -29,6 +30,15 @@ export default function MessageItem({
             </Moment>
           </span>
           <p>{text}</p>
+
+          {postMedia.length !== 0 && (
+            <div className="mediaDiv">
+              <img src={`http://${postMedia[0]}`} alt="" />{" "}
+            </div>
+          ) }
+
+          {console.log(postMedia)}
+
           {isCorrectUser && (
             <a className="btn btn-danger" onClick={removePost}>
               Delete
