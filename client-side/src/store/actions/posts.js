@@ -30,10 +30,20 @@ export const fetchPosts = () => {
   };
 };
 
+export const fetchCurrentUserPosts = (user_id) => {
+  return (dispatch) => {
+    return apiCall("get", `/api/users/${user_id}/posts`)
+      .then((res) => {
+        dispatch(loadPosts(res));
+      })
+      .catch((err) => dispatch(addError(err.message)));
+  };
+};
+
 export const sendNewPost = (data) => (dispatch, getState) => {
   let { currentUser } = getState();
   const id = currentUser.user.id;
-  return apiCall("post", `/api/users/${id}/posts`,  data )
+  return apiCall("post", `/api/users/${id}/posts`, data)
     .then((res) => {})
     .catch((err) => dispatch(addError(err.message)));
 };

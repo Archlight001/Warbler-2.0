@@ -23,7 +23,7 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use(
-  "/api/users/:id/posts",loginRequired,ensureCorrectUser,
+  "/api/users/:id/posts",
   postRoutes
 );
 

@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
-import { fetchPosts, removePost } from "../store/actions/posts";
+import { fetchPosts, removePost,fetchCurrentUserPosts } from "../store/actions/posts";
 import PostItem from "../components/PostItem";
-import "../css/PostList.css";
 import { connect } from "react-redux";
 
 function PostList(props) {
   useEffect(() => {
-    props.fetchPosts();
+    if(props.profile){
+      props.fetchCurrentUserPosts(props.currentUser);
+    }else{
+      props.fetchPosts();
+    }    
   });
 
-  const { posts, removePost, currentUser } = props;
+  const { posts, removePost, currentUser,profile } = props;
   let postList = posts.map((m) => (
     <PostItem
       key={m._id}
@@ -22,8 +25,11 @@ function PostList(props) {
       isCorrectUser={currentUser === m.user._id}
     />
   ));
-  return (
+  return (    
     <div className="row col-sm-8">
+      {profile && <div className="offset-1 col-sm-10">
+        <h1>HEYYYY</h1>
+      </div>}
       <div className="offset-1 col-sm-10">
         <ul className="list-group" id="posts">
           {postList}
@@ -40,6 +46,6 @@ function MapReduxStateToProps(state) {
   };
 }
 
-export default connect(MapReduxStateToProps, { fetchPosts, removePost })(
+export default connect(MapReduxStateToProps, { fetchPosts, removePost,fetchCurrentUserPosts })(
   PostList
 );

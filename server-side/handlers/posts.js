@@ -78,9 +78,9 @@ exports.createPost = async function (req, res, next) {
   }
 };
 
-exports.getPost = async function (req, res, next) {
+exports.getcurrentUserPost = async function (req, res, next) {
   try {
-    let foundPost = await db.Post.findById(req.params.post_id).populate("user");
+    let foundPost = await db.Post.find({user:req.params.id}).populate("user");
     return res.status(200).json(foundPost);
   } catch (error) {
     return next(error);

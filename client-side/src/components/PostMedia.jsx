@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function PostMedia({ postMedia, stretch, handleClick }) {
+export default function PostMedia({ postMedia, stretch }) {
   let mediaExtension = postMedia.slice(postMedia.lastIndexOf("."));
   let mediaType = "image";
 
@@ -37,7 +37,9 @@ export default function PostMedia({ postMedia, stretch, handleClick }) {
           alt=""
         />
       ) : (
-        <video width="320" height="240" src={`http://${postMedia}`} controls />
+        <video width="320" height="240" controls >
+            <source src={`http://${postMedia}`}  type="video/mp4"/>
+        </video>
       )}
 
       {show && (
@@ -47,6 +49,7 @@ export default function PostMedia({ postMedia, stretch, handleClick }) {
         >
            <img
           src={`http://${postMedia}`}
+          alt="Enlarged post"
         /> 
         </div>
       )}
