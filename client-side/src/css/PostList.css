@@ -1,58 +1,90 @@
-#messages .list-group-item{
-    display: flex;
-    align-items: flex-start;
-    padding: 7px 20px 12px;
-  }
-  
-  #messages:not(.no-hover) .list-group-item:hover{
-    background-color: #e6ecf0;
-  }
-  
-  .timeline-image{
-    border-radius:50px;
-    height:48px;
-    width: 48px;
-    margin:2px 30px 10px;
-  }
-  
-  .btn:hover {
-    cursor: pointer;
-  }
-  
-  a.btn.btn-danger, a.btn.btn-danger:hover{
-    color: white;
-  }
-  
-  .mediaDiv{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+#profile {
+  background-color: white;
+  display: flex;
+  width: 79.2%;
+  padding: 7px 20px 12px;
+  margin-left: 76px;
+}
 
-  .mediaDiv >div{
-    height: 50%;
-    width: 50%;
-  }
+.profile-details{
+  margin-left: 10%;
+}
 
-  .mediaDiv>div img{
-    max-width: 100%;
-    max-height: 100%;
-  }
+.profile-details ul{
+  padding-inline-start: 0;
+}
 
-  .enlargeMedia{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position:absolute;
-    top:0px;
-    right:0px;
-    bottom:0px;
-    left:0px;
-  }
+.profile-details li{
+  display: inline;
+  padding: 20px;
+  
+}
 
-  .enlargeMedia img{
-    flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%
-  }
+.edit-field{
+  display: flex;
+}
+.edit-field i{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#posts .list-group-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 7px 20px 12px;
+}
+
+#posts:not(.no-hover) .list-group-item:hover {
+  background-color: #e6ecf0;
+}
+
+.timeline-image {
+  border-radius: 50px;
+  height: 48px;
+  width: 48px;
+  margin: 2px 30px 10px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+a.btn.btn-danger,
+a.btn.btn-danger:hover {
+  color: white;
+}
+
+.mediaDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.mediaDiv > div {
+  height: 50%;
+  width: 50%;
+}
+
+.mediaDiv > div img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.enlargeMedia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.enlargeMedia img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+

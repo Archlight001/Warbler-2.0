@@ -34,6 +34,7 @@ exports.signin = async function (req, res, next) {
 exports.signup = async function (req, res, next) {
   try {
     let hostname = req.headers.host;
+    const displayName = `${req.body.firstName} ${req.body.lastName}`;
     const image = req.files.profile_pic;
     let checkImageFormat = imageFilter(image.mimetype);
     let newImageName = `${req.body.username}${image.name.slice(
@@ -50,6 +51,8 @@ exports.signup = async function (req, res, next) {
 
     let newUser = {
       ...req.body,
+      displayName:displayName,
+      description:`Hi I'm ${displayName}`,
       profileImageUrl: imageUrl,
     };
 

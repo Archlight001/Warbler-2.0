@@ -2,6 +2,20 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema({
+  firstName:{
+    type: String,
+    required: true,
+  },
+  lastName:{
+    type:String,
+    required:true
+  },
+  displayName:{
+    type:String
+  },
+  description:{
+    type:String
+  },
   email: {
     type: String,
     required: true,
@@ -20,6 +34,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  following:{
+    type:Array
   },
   posts: [
     {
