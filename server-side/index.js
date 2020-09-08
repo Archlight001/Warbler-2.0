@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const errorHandler = require("./handlers/error");
 const userauthRoutes = require("./routes/userauth");
+const userOpsRoutes = require("./routes/user");
 const postRoutes = require("./routes/posts");
 const bodyParser = require('body-parser')
 const upload = require("express-fileupload");
@@ -26,6 +27,7 @@ app.use(
   "/api/users/:id/posts",
   postRoutes
 );
+app.use("/api/users",userOpsRoutes);
 
 app.get("/api/posts",loginRequired, async function (req, res, next) {
   try {
