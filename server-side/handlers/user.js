@@ -36,12 +36,33 @@ exports.followOp = async function(req,res,next){
 
     if(req.params.op === "follow"){
       followUser.following.push(followUsername);
-    }else{
+    }else if(req.params.op === "unfollow"){
       followUser.following.remove(followUsername);
     }  
     await followUser.save();
 
     return res.json(followUser);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+exports.modifyProfile = async function(req,res,next){
+  try {
+    let currentUserId = req.body.currentUserId;
+    let user = await db.User.findById(currentUserId);
+    
+    let newValue = req.body.value;
+
+    if(req.params.profile === "description"){
+      user.description = newValue;
+    }else if(req.params.profile === "displayName"){
+      user.displayName = newValue;
+    }
+
+    await user.save();
+
+    return res.json(user);
   } catch (error) {
     return next(error);
   }
