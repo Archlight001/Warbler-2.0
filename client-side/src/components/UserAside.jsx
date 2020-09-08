@@ -18,8 +18,8 @@ export default function UserAside({ profileImageUrl, username,show}) {
 
           <h4>{username}</h4>
           <div className="navigation">
-            <button class="btn btn-success" onClick={show.bind(this,"Home")}>Home</button>
-            <button class="btn btn-success" onClick={show.bind(this,"Profile")}>Profile</button>
+            <button className="btn btn-success" onClick={show.bind(this,"Home")}>Home</button>
+            <button className="btn btn-success" onClick={show.bind(this,"Profile")}>Profile</button>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ const errorHandler = require("./handlers/error");
 const userauthRoutes = require("./routes/userauth");
 const userOpsRoutes = require("./routes/user");
 const postRoutes = require("./routes/posts");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 const upload = require("express-fileupload");
 const db = require("./models");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
@@ -16,20 +16,16 @@ const PORT = 8082;
 process.env["ROOT"] = __dirname;
 
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(upload());
 
-
 app.use("/api/userauth", userauthRoutes);
-app.use(
-  "/api/users/:id/posts",
-  postRoutes
-);
-app.use("/api/users",userOpsRoutes);
+app.use("/api/userops/:id",userOpsRoutes);
+app.use("/api/users/:id/posts", loginRequired, ensureCorrectUser, postRoutes);
 
-app.get("/api/posts",loginRequired, async function (req, res, next) {
+app.get("/api/posts", loginRequired, async function (req, res, next) {
   try {
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })

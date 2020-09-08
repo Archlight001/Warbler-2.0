@@ -7,11 +7,15 @@ exports.signin = async function (req, res, next) {
     let email = req.body.email;
     console.log(req.body);
     let user = await db.User.findOne({ email: email });
-    let { id, username, profileImageUrl } = user;
+    let {
+      id,
+      username,
+      profileImageUrl,
+    } = user;
     let isMatch = await user.comparePasswords(req.body.password);
     if (isMatch) {
       let token = jwt.sign(
-        { id, username, profileImageUrl },
+        { id, username, profileImageUrl},
         process.env.SECRET_KEY
       );
       return res.status(200).json({
@@ -27,7 +31,10 @@ exports.signin = async function (req, res, next) {
       });
     }
   } catch (error) {
-    return next({ status: 400, message: "Invalid Email address" });
+    return next({
+      status: 400,
+      message: error.message,
+    });
   }
 };
 
@@ -51,19 +58,25 @@ exports.signup = async function (req, res, next) {
 
     let newUser = {
       ...req.body,
-      displayName:displayName,
-      description:`Hi I'm ${displayName}`,
+      displayName: displayName,
+      description: `Hi I'm ${displayName}`,
       profileImageUrl: imageUrl,
     };
 
     //Create new User document
     let user = await db.User.create(newUser);
     //Move image to location
-    image.mv(`${process.env.ROOT}/public/uploads/${newImageName}`, function (err) {
+    image.mv(`${process.env.ROOT}/public/uploads/${newImageName}`, function (
+      err
+    ) {
       if (err) {
         return next(err);
       } else {
-        let { id, username, profileImageUrl } = user;
+        let {
+          id,
+          username,
+          profileImageUrl,
+        } = user;
         let token = jwt.sign(
           {
             id,
