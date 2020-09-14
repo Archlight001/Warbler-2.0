@@ -21,3 +21,5 @@ export default function withAuth(ComponentToBeRendered) {
 
   return connect(mapReduxStateToProps)(Authenticate);
 }
+
+

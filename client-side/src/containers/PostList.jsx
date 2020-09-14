@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchPosts,
-  removePost,
-} from "../store/actions/posts";
+import { fetchPosts, removePost } from "../store/actions/posts";
 import { currentUserInfo } from "../store/actions/user";
 import PostItem from "../components/PostItem";
 import { connect } from "react-redux";
@@ -10,15 +7,24 @@ import DefaultProfileImg from "../images/default-profile-image.jpg";
 import { addError, removeError } from "../store/actions/errors";
 
 function PostList(props) {
-  
   useEffect(() => {
     if (!props.profile) {
       props.fetchPosts();
     }
   }, [props.profile]);
 
-  
-  const { posts, removePost, currentUser, profile, userInfo,followers } = props;
+  const {
+    posts,
+    removePost,
+    currentUser,
+    profile,
+    userInfo,
+    followers,
+    sameUser,
+    followOperation,
+    isFollowing,
+  } = props;
+
   let postList = posts.map((m) => (
     <PostItem
       key={m._id}
@@ -33,15 +39,15 @@ function PostList(props) {
     />
   ));
 
+  let followStatus = isFollowing ? "unfollow" : "follow";
+
   return (
     <div className="row col-sm-8">
       {profile && (
         <div id="profile">
           <div className="img-div">
             <img
-              src={
-                `http://${userInfo.profileImageUrl}` || DefaultProfileImg
-              }
+              src={`http://${userInfo.profileImageUrl}` || DefaultProfileImg}
               alt="default Image"
             />
           </div>
@@ -60,11 +66,26 @@ function PostList(props) {
             <ul>
               <li>{followers} Followers</li>
               <li>
-                {userInfo?.following && userInfo?.following.length}{" "}
-                Following
+                {userInfo?.following && userInfo?.following.length} Following
               </li>
             </ul>
           </div>
+
+          {!sameUser && (
+            <div className="follow__btn">
+              <button
+                onClick={followOperation.bind(
+                  this,
+                  currentUser.id,
+                  userInfo.username,
+                  followStatus
+                )}
+                className="btn btn-info"
+              >
+                {followStatus === "follow" ? "Follow" : "Following"}
+              </button>
+            </div>
+          )}
         </div>
       )}
       <div className="offset-1 col-sm-10">

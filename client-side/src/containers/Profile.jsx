@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import UserAside from "../components/UserAside";
 import PostList from "./PostList";
 import { fetchCurrentUserPosts } from "../store/actions/posts";
-import { currentUserInfo } from "../store/actions/user";
+import { currentUserInfo, followOperation } from "../store/actions/user";
 import { connect } from "react-redux";
 import { apiCall } from "../services/api";
+import "../css/PostList.css";
 
 function Profile({
   username,
@@ -15,6 +16,7 @@ function Profile({
   userInfo,
   location,
   otherUser,
+  followOperation,
 }) {
   useEffect(() => {
     if (otherUser) {
@@ -27,6 +29,7 @@ function Profile({
   }, []);
 
   let [followers, getFollowers] = useState(0);
+  let [isFollowing, setFollowing] = useState(false);
 
   function followersLength() {
     apiCall("post", `/api/userops/${userInfo.id}/followers`, {
@@ -40,11 +43,34 @@ function Profile({
       });
   }
 
+  function checkFollowing() {
+    apiCall("post", `/api/userops/${currentUser.id}/followOp/checkFollowing`, {
+      username: userInfo.username,
+      id: currentUser.id,
+    })
+      .then((result) => {
+        setFollowing(result.following);
+      })
+      .catch((err) => console.log(err));
+  }
+
   followersLength();
+
+  if (currentUser.id !== userInfo.id) {
+    checkFollowing();
+  }
+
   return (
     <div className="row">
       <UserAside username={username} profileImageUrl={profileImageUrl} />
-      <PostList profile userInfo={userInfo} followers={followers} />
+      <PostList
+        profile
+        userInfo={userInfo}
+        isFollowing={isFollowing}
+        sameUser={currentUser.id !== userInfo.id ? false : true}
+        followOperation={followOperation}
+        followers={followers}
+      />
     </div>
   );
 }
@@ -60,4 +86,5 @@ function MapReduxStateToProps(state) {
 export default connect(MapReduxStateToProps, {
   currentUserInfo,
   fetchCurrentUserPosts,
+  followOperation,
 })(Profile);

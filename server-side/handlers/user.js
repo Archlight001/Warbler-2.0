@@ -30,8 +30,8 @@ exports.getFollowers = async function (req, res, next) {
 
 exports.followOp = async function (req, res, next) {
   try {
-    let currentUserId = req.params.id;
-    let followUsername = req.body.followUsername;
+    let currentUserId = req.body.id;
+    let followUsername = req.body.username;
     let followUser = await db.User.findById(currentUserId);
 
     if (req.params.op === "follow") {
@@ -41,11 +41,29 @@ exports.followOp = async function (req, res, next) {
     }
     await followUser.save();
 
-    return res.json(followUser);
+    followUser = await db.User.find({username:followUsername});
+
+    return res.json(followUser[0]);
   } catch (error) {
     return next(error);
   }
 };
+
+exports.checkFollowing = async function(req,res,next){
+  try {
+    let currentUserId = req.body.id;
+    let username = req.body.username;
+    let User = await db.User.findById(currentUserId);
+    const checkIfFollowing = User.following.find(value => value === username);
+    if(checkIfFollowing){
+      return res.json({following:true})
+    }else{
+      return res.json({following:false})
+    }
+  } catch (error) {
+    return next(error);
+  }
+}
 
 exports.modifyProfile = async function (req, res, next) {
   try {

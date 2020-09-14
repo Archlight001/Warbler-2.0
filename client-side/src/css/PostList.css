@@ -20,6 +20,15 @@
   
 }
 
+.follow__btn{
+  margin-left: 15px;
+}
+
+.follow__btn >button{
+  padding: 9px;
+  font-size: smaller;
+}
+
 .edit-field{
   display: flex;
 }
