@@ -23,7 +23,7 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use("/api/userops/:id",userOpsRoutes);
-app.use("/api/users/:id/posts", loginRequired, ensureCorrectUser, postRoutes);
+app.use("/api/users/:id/posts", loginRequired, postRoutes);
 
 app.get("/api/posts", loginRequired, async function (req, res, next) {
   try {

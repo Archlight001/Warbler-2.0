@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PostMedia from "./PostMedia";
 import DefaultProfileImg from "../images/default-profile-image.jpg";
 
-export default function MessageItem({
+export default function MessageItem({id,
   date,
   profileImageUrl,
   text,
@@ -14,7 +14,6 @@ export default function MessageItem({
   isCorrectUser,
 }) {
 
-  
   let media = [];
   if (postMedia.length === 1) {
     media =  <PostMedia key={1} postMedia={postMedia[0]} stretch />
@@ -35,7 +34,10 @@ export default function MessageItem({
           className="timeline-image"
         />
         <div className="message-area">
-          <Link to="/">@{username} &nbsp;</Link>
+          <Link to={{
+            pathname:`/profile/${username}`,
+            state:{userId:id}
+          }}>@{username} &nbsp;</Link>
           <span className="text-muted">
             <Moment className="text-muted" format="Do MM YYYY">
               {date}

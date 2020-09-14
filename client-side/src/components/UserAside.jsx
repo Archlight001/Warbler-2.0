@@ -1,8 +1,9 @@
 import React from "react";
 import DefaultProfileImg from "../images/default-profile-image.jpg";
 import "../css/UserAside.css";
+import { Link } from "react-router-dom";
 
-export default function UserAside({ profileImageUrl, username,show}) {
+export default function UserAside({ profileImageUrl, username, show }) {
   return (
     <aside className="col-sm-2">
       <div className="panel panel-default">
@@ -18,8 +19,12 @@ export default function UserAside({ profileImageUrl, username,show}) {
 
           <h4>{username}</h4>
           <div className="navigation">
-            <button className="btn btn-success" onClick={show.bind(this,"Home")}>Home</button>
-            <button className="btn btn-success" onClick={show.bind(this,"Profile")}>Profile</button>
+            <Link to="/">
+              <button className="btn btn-success">Home</button>
+            </Link>
+            <Link to="/profile">
+              <button className="btn btn-success">Profile</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -89,6 +89,24 @@ export default function Authform({
                     type="text"
                   />
 
+                  <label htmlFor="username">First Name:</label>
+                  <input
+                    className="form-control"
+                    id="firstName"
+                    name="firstName"
+                    ref={register({ required: "First Name is required" })}
+                    type="text"
+                  />
+
+                  <label htmlFor="username">Last Name:</label>
+                  <input
+                    className="form-control"
+                    id="lastName"
+                    name="lastName"
+                    ref={register({ required: "Last Name is required" })}
+                    type="text"
+                  />
+
                   <label htmlFor="image-url">Profile Image</label>
                   <input
                     className="form-control"

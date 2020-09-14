@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import {Route, withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import Authform from "../components/Authform";
 import Homepage from "../components/Homepage";
+import Profile from "./Profile";
 import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth from "../hocs/withAuth";
@@ -14,6 +15,25 @@ function Main(props) {
       <Route exact path="/">
         <Homepage {...props} currentUser={currentUser} />
       </Route>
+
+      <Route exact path="/profile">
+        <Profile
+          {...props}
+          profileImageUrl={currentUser.user.profileImageUrl}
+          username={currentUser.user.username}
+          
+        />
+      </Route>
+
+      <Route exact path="/profile/:username">
+        <Profile
+          {...props}
+          profileImageUrl={currentUser.user.profileImageUrl}
+          username={currentUser.user.username}
+          otherUser
+        />
+      </Route>
+
 
       <Route exact path="/signup">
         <Authform
@@ -38,7 +58,7 @@ function Main(props) {
         />
       </Route>
 
-      <Route path="/users/:id/posts/new" component={withAuth(PostForm)}/>
+      <Route path="/users/:id/posts/new" component={withAuth(PostForm)} />
     </div>
   );
 }

@@ -19,6 +19,7 @@ exports.getFollowing = async function (req, res, next) {
 
 exports.getFollowers = async function (req, res, next) {
   try {
+
     let username = req.body.username;
     let followers = await db.User.find({ following: username });
     return res.json(followers);
