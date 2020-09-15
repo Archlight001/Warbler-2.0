@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserAside from "../components/UserAside";
 import PostList from "./PostList";
 import { fetchCurrentUserPosts } from "../store/actions/posts";
-import { currentUserInfo, followOperation } from "../store/actions/user";
+import { currentUserInfo, followOperation,modifyProfile } from "../store/actions/user";
 import { connect } from "react-redux";
 import { apiCall } from "../services/api";
 import "../css/PostList.css";
@@ -17,6 +17,7 @@ function Profile({
   location,
   otherUser,
   followOperation,
+  modifyProfile
 }) {
   useEffect(() => {
     if (otherUser) {
@@ -67,6 +68,7 @@ function Profile({
         profile
         userInfo={userInfo}
         isFollowing={isFollowing}
+        modifyProfileInfo = {modifyProfile}
         sameUser={currentUser.id !== userInfo.id ? false : true}
         followOperation={followOperation}
         followers={followers}
@@ -87,4 +89,5 @@ export default connect(MapReduxStateToProps, {
   currentUserInfo,
   fetchCurrentUserPosts,
   followOperation,
+  modifyProfile
 })(Profile);

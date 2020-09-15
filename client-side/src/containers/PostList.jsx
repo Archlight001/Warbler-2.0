@@ -5,6 +5,8 @@ import PostItem from "../components/PostItem";
 import { connect } from "react-redux";
 import DefaultProfileImg from "../images/default-profile-image.jpg";
 import { addError, removeError } from "../store/actions/errors";
+import CloseIcon from "@material-ui/icons/Close";
+import CheckIcon from "@material-ui/icons/Check";
 
 function PostList(props) {
   useEffect(() => {
@@ -23,6 +25,7 @@ function PostList(props) {
     sameUser,
     followOperation,
     isFollowing,
+    modifyProfileInfo,
   } = props;
 
   let postList = posts.map((m) => (
@@ -39,7 +42,38 @@ function PostList(props) {
     />
   ));
 
+  let [showEdit, toggleEdit] = useState({
+    displayName: false,
+    description: false,
+  });
+
+  let [displayName, setdisplayName] = useState("");
+  let [description, setDescription] = useState("");
+
   let followStatus = isFollowing ? "unfollow" : "follow";
+
+  const showModifyProfile = (value) => {
+    setdisplayName(userInfo.displayName);
+    setDescription(userInfo.description);
+
+    value === "displayName"
+      ? toggleEdit({ ...showEdit, displayName: !showEdit.displayName })
+      : toggleEdit({ ...showEdit, description: !showEdit.description });
+  };
+
+  const modifyProfile = (value) => {
+    if (value === "displayName") {
+      if (displayName.trim() !== "") {
+        modifyProfileInfo(currentUser.id, displayName, value);
+        showModifyProfile("displayName");
+      } else {
+        alert("Empty fields are not allowed");
+      }
+    } else if (value === "description") {
+      modifyProfileInfo(currentUser.id, description, value);
+      showModifyProfile("description");
+    }
+  };
 
   return (
     <div className="row col-sm-8">
@@ -52,16 +86,75 @@ function PostList(props) {
             />
           </div>
           <div className="profile-details">
-            <div className="edit-field">
-              <h3>{userInfo.displayName}</h3>
-              <i className="fas fa-edit"></i>
-            </div>
+            {!showEdit.displayName ? (
+              <div className="edit-field">
+                <h3>{userInfo.displayName}</h3>
+                {sameUser && (
+                  <i
+                    onClick={showModifyProfile.bind(this, "displayName")}
+                    id="displayName"
+                    className="fas fa-edit"
+                  />
+                )}
+              </div>
+            ) : (
+              <div className="edit__displayName">
+                <input
+                  type="text"
+                  name="displayName"
+                  value={displayName}
+                  onChange={(e) => setdisplayName(e.target.value)}
+                />
+                <div className="edit__icons">
+                  <div>
+                    <CheckIcon
+                      onClick={modifyProfile.bind(this, "displayName")}
+                    />
+                  </div>
+                  <div>
+                    <CloseIcon
+                      onClick={showModifyProfile.bind(this, "displayName")}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <h6>@{userInfo.username}</h6>
-            <div className="edit-field">
-              <p>{userInfo.description}</p>
-              <i className="fas fa-edit"></i>
-            </div>
+            {!showEdit.description ? (
+              <div className="edit-field">
+                <p>{userInfo.description}</p>
+                {sameUser && (
+                  <i
+                    onClick={showModifyProfile.bind(this, "description")}
+                    className="fas fa-edit"
+                  ></i>
+                )}
+              </div>
+            ) : (
+              <div className="edit__description">
+                <textarea
+                  name="description"
+                  value={description}
+                  rows="5"
+                  cols="30"
+                  maxLength="160"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <div className="edit__icons">
+                  <div>
+                    <CheckIcon
+                      onClick={modifyProfile.bind(this, "description")}
+                    />
+                  </div>
+                  <div>
+                    <CloseIcon
+                      onClick={showModifyProfile.bind(this, "description")}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <ul>
               <li>{followers} Followers</li>

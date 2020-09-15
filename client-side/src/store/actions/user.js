@@ -31,7 +31,27 @@ export function followOperation(id, username, op) {
     return new Promise((resolve, reject) => {
       return apiCall("post", `/api/userops/${id}/followOp/${op}`, {
         username: username,
-        id:id
+        id: id,
+      })
+        .then((info) => {
+          dispatch(setUserInfo(info));
+          dispatch(removeError());
+          resolve();
+        })
+        .catch((err) => {
+          dispatch(addError(err.message));
+          reject();
+        });
+    });
+  };
+}
+
+export function modifyProfile(id, value, profile) {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      return apiCall("post", `/api/userops/${id}/modifyProfile/${profile}`, {
+        id: id,
+        value: value,
       })
         .then((info) => {
           dispatch(setUserInfo(info));

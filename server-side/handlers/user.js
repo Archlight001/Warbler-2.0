@@ -67,7 +67,7 @@ exports.checkFollowing = async function(req,res,next){
 
 exports.modifyProfile = async function (req, res, next) {
   try {
-    let currentUserId = req.params.id;
+    let currentUserId = req.body.id;
     let user = await db.User.findById(currentUserId);
 
     let newValue = req.body.value;
@@ -80,7 +80,22 @@ exports.modifyProfile = async function (req, res, next) {
 
     await user.save();
 
-    return res.json(user);
+    let {id,
+      username,
+      displayName,
+      description,
+      profileImageUrl,
+      following
+    } = user;
+
+    return res.json({
+      id,
+      username,
+      displayName,
+      description,
+      profileImageUrl,
+      following
+    });
   } catch (error) {
     return next(error);
   }

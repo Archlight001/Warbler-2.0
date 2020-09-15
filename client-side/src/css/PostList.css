@@ -19,6 +19,9 @@
   padding: 20px;
   
 }
+.profile-details i:hover{
+  cursor: pointer;
+}
 
 .follow__btn{
   margin-left: 15px;
@@ -35,6 +38,19 @@
 .edit-field i{
   margin-left: 10px;
   margin-top: 10px;
+}
+
+.edit__displayName{
+  display: flex;
+}
+
+.edit__icons{
+  margin-left: 15px;
+  float: right;
+}
+
+.edit__icons >div:hover{
+  cursor: pointer;
 }
 
 #posts .list-group-item {
