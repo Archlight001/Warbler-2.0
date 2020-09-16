@@ -21,10 +21,10 @@ function Profile({
 }) {
   useEffect(() => {
     if (otherUser) {
-      currentUserInfo(location.state?.userId);
+      currentUserInfo(location.state?.userId,currentUser.id);
       fetchCurrentUserPosts(location.state?.userId);
     } else {
-      currentUserInfo(currentUser.id);
+      currentUserInfo(currentUser.id,currentUser.id);
       fetchCurrentUserPosts(location.state?.userId || currentUser.id);
     }
   }, []);

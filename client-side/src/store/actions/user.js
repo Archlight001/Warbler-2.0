@@ -9,10 +9,10 @@ export function setUserInfo(user) {
   };
 }
 
-export function currentUserInfo(id) {
+export function currentUserInfo(id,currentUserId) {
   return (dispatch) => {
     return new Promise((resolve, reject) => {
-      return apiCall("post", `/api/userops/${id}`, { id: id })
+      return apiCall("post", `/api/userops/${id}`, { id: id,currentUserId:currentUserId })
         .then((info) => {
           dispatch(setUserInfo(info));
           dispatch(removeError());

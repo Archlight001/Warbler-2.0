@@ -2,11 +2,11 @@ const db = require("../models");
 
 exports.getFollowing = async function (req, res, next) {
   try {
-    let userId = req.params.id;
+    let userId = req.body.id;
     let users = await db.User.findById(userId).select("following -_id");
     let followingData = [];
 
-    for (let i = 0; i < query.following.length; i++) {
+    for (let i = 0; i < users.following.length; i++) {
       let d = await db.User.find({ username: users.following[i] });
       followingData.push(d[0]);
     }
@@ -19,7 +19,6 @@ exports.getFollowing = async function (req, res, next) {
 
 exports.getFollowers = async function (req, res, next) {
   try {
-
     let username = req.body.username;
     let followers = await db.User.find({ following: username });
     return res.json(followers);
@@ -34,6 +33,8 @@ exports.followOp = async function (req, res, next) {
     let followUsername = req.body.username;
     let followUser = await db.User.findById(currentUserId);
 
+    let currentUserFollowing = followUser.following
+
     if (req.params.op === "follow") {
       followUser.following.push(followUsername);
     } else if (req.params.op === "unfollow") {
@@ -41,29 +42,50 @@ exports.followOp = async function (req, res, next) {
     }
     await followUser.save();
 
-    followUser = await db.User.find({username:followUsername});
-
-    return res.json(followUser[0]);
+    followUser = await db.User.find({ username: followUsername });
+    let {
+      _id,
+      description,
+      displayName,
+      email,
+      firstName,
+      following,
+      lastName,
+      profileImageUrl,
+      username,
+    } = followUser[0];
+    return res.json({
+      _id,
+      description,
+      displayName,
+      email,
+      firstName,
+      following,
+      lastName,
+      profileImageUrl,
+      username,
+      currentUserFollowing
+    });
   } catch (error) {
     return next(error);
   }
 };
 
-exports.checkFollowing = async function(req,res,next){
+exports.checkFollowing = async function (req, res, next) {
   try {
     let currentUserId = req.body.id;
     let username = req.body.username;
     let User = await db.User.findById(currentUserId);
-    const checkIfFollowing = User.following.find(value => value === username);
-    if(checkIfFollowing){
-      return res.json({following:true})
-    }else{
-      return res.json({following:false})
+    const checkIfFollowing = User.following.find((value) => value === username);
+    if (checkIfFollowing) {
+      return res.json({ following: true });
+    } else {
+      return res.json({ following: false });
     }
   } catch (error) {
     return next(error);
   }
-}
+};
 
 exports.modifyProfile = async function (req, res, next) {
   try {
@@ -80,12 +102,13 @@ exports.modifyProfile = async function (req, res, next) {
 
     await user.save();
 
-    let {id,
+    let {
+      id,
       username,
       displayName,
       description,
       profileImageUrl,
-      following
+      following,
     } = user;
 
     return res.json({
@@ -94,7 +117,7 @@ exports.modifyProfile = async function (req, res, next) {
       displayName,
       description,
       profileImageUrl,
-      following
+      following,
     });
   } catch (error) {
     return next(error);
@@ -103,14 +126,18 @@ exports.modifyProfile = async function (req, res, next) {
 
 exports.getUserInfo = async function (req, res, next) {
   try {
-    let currentUserId = req.body.id;
-    let user = await db.User.findById(currentUserId);
-    let {id,
+    let userId = req.body.id;
+    let currentUserId = req.body.currentUserId;
+    let currentUser = await db.User.findById(currentUserId);
+    let currentUserFollowing = currentUser.following
+    let user = await db.User.findById(userId);
+    let {
+      id,
       username,
       displayName,
       description,
       profileImageUrl,
-      following
+      following,
     } = user;
 
     return res.json({
@@ -119,7 +146,8 @@ exports.getUserInfo = async function (req, res, next) {
       displayName,
       description,
       profileImageUrl,
-      following
+      following,
+      currentUserFollowing
     });
   } catch (error) {
     return next(error);

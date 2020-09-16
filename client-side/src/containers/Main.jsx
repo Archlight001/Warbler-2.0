@@ -8,6 +8,7 @@ import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth, { withId } from "../hocs/withAuth";
 import PostForm from "../components/PostForm";
+import FollowList from "./FollowList";
 function Main(props) {
   const { authUser, errors, removeError, currentUser } = props;
   return (
@@ -35,6 +36,11 @@ function Main(props) {
         ) : (
           <Redirect to="/" />
         )}
+      </Route>
+
+      <Route exact path="/profile/:username/:followOp">
+        <FollowList userInfo={props.location.state?.userInfo} followOp={props.location.state?.followOp} />
+        
       </Route>
 
       <Route exact path="/signup">

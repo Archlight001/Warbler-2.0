@@ -7,6 +7,7 @@ import DefaultProfileImg from "../images/default-profile-image.jpg";
 import { addError, removeError } from "../store/actions/errors";
 import CloseIcon from "@material-ui/icons/Close";
 import CheckIcon from "@material-ui/icons/Check";
+import { Link } from "react-router-dom";
 
 function PostList(props) {
   useEffect(() => {
@@ -157,10 +158,14 @@ function PostList(props) {
             )}
 
             <ul>
-              <li>{followers} Followers</li>
-              <li>
-                {userInfo?.following && userInfo?.following.length} Following
-              </li>
+              <Link to={{pathname:`/profile/${userInfo.username}/followers`,state:{userInfo:userInfo,followOp:"followers"}}}>
+                <li>{followers} Followers</li>
+              </Link>
+              <Link to={{pathname:`/profile/${userInfo.username}/following`,state:{userInfo:userInfo,followOp:"following"}}}>
+                <li>
+                  {userInfo?.following && userInfo?.following.length} Following
+                </li>
+              </Link>
             </ul>
           </div>
 
