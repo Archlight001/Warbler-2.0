@@ -22,15 +22,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
-app.use("/api/userops/:id",userOpsRoutes);
+app.use("/api/userops/:id", userOpsRoutes);
 app.use("/api/users/:id/posts", loginRequired, postRoutes);
 
-app.get("/api/posts", loginRequired, async function (req, res, next) {
+app.post("/api/posts", loginRequired, async function (req, res, next) {
   try {
+    let currentUserId = req.body.id;
+    let currentUser = await db.User.findById(currentUserId);
+    let currentUserFollowing = currentUser.following;
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })
       .populate("user", { username: true, profileImageUrl: true });
-    return res.json(allPosts);
+    let timelinePosts = [];
+    currentUserFollowing.forEach((user) => {
+      for (let i = 0; i < allPosts.length; i++) {
+        if (allPosts[i].user.username === user) {
+          timelinePosts.push(allPosts[i]);
+        }else if(allPosts[i].user.id === currentUserId){
+          timelinePosts.push(allPosts[i]);
+        }
+      }
+    });
+
+    return res.json(timelinePosts);
   } catch (error) {
     return next(err);
   }

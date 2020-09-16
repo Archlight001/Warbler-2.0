@@ -20,9 +20,9 @@ export const removePost = (user_id, post_id) => {
   };
 };
 
-export const fetchPosts = () => {
+export const fetchPosts = (id) => {
   return (dispatch) => {
-    return apiCall("get", "/api/posts")
+    return apiCall("post", "/api/posts",{id:id})
       .then((res) => {
         dispatch(loadPosts(res));
       })

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 function PostList(props) {
   useEffect(() => {
     if (!props.profile) {
-      props.fetchPosts();
+      props.fetchPosts(props.currentUser.id);
     }
   }, [props.profile]);
 
