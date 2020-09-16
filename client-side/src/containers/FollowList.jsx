@@ -29,7 +29,8 @@ function FollowList({ userInfo, followOp, followOperation,currentUser }) {
     Users = data?.map((data, index) => (
       <User
         key={index}
-        id={currentUser}
+        id={currentUser.id}
+        currentUser__username = {currentUser.username}
         displayName={data.displayName}
         isFollowing={userInfo.currentUserFollowing.find(value => (value === data.username)) !== undefined?true:false}
         username={data.username}
@@ -43,7 +44,7 @@ function FollowList({ userInfo, followOp, followOperation,currentUser }) {
 
 function MapReduxStateToProps(state) {
   return {
-    currentUser:state.currentUser.user.id,
+    currentUser:state.currentUser.user,
     error: state.errors.message,
   };
 }
