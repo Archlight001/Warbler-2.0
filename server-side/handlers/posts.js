@@ -2,6 +2,7 @@ const db = require("../models");
 const { validate } = require("../helpers/media_validation");
 const { createMediaUrl } = require("../helpers/createMediaUrl");
 const fs = require("fs");
+const { getTimelinePosts } = require("../helpers/getTimelinePosts");
 
 exports.createPost = async function (req, res, next) {
   try {
@@ -80,7 +81,9 @@ exports.createPost = async function (req, res, next) {
 
 exports.getcurrentUserPost = async function (req, res, next) {
   try {
-    let foundPost = await db.Post.find({user:req.params.id}).populate("user");
+    let foundPost = await db.Post.find({ user: req.params.id }).populate(
+      "user"
+    );
     return res.status(200).json(foundPost);
   } catch (error) {
     return next(error);
@@ -119,6 +122,32 @@ exports.deletePost = async function (req, res, next) {
       }
       return res.json(post);
     });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.like__unlike__posts = async (req, res, next) => {
+  try {
+    let postId = req.body.postId;
+    let users__username = req.body.user;
+
+    let getPost = await db.Post.findById(postId);
+    if (req.params.op === "like") {
+      getPost.likedBy.push(users__username);
+    } else if (req.params.op === "unlike") {
+      getPost.likedBy.remove(users__username);
+    }
+
+    await getPost.save();
+
+    getTimelinePosts(req.params.id)
+      .then((posts) => {
+        return res.json(posts);
+      })
+      .catch((err) => {
+        return next(err);
+      });
   } catch (error) {
     return next(error);
   }

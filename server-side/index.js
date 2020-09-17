@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const errorHandler = require("./handlers/error");
+const { getTimelinePosts } = require("./helpers/getTimelinePosts");
 const userauthRoutes = require("./routes/userauth");
 const userOpsRoutes = require("./routes/user");
 const postRoutes = require("./routes/posts");
@@ -27,26 +28,32 @@ app.use("/api/users/:id/posts", loginRequired, postRoutes);
 
 app.post("/api/posts", loginRequired, async function (req, res, next) {
   try {
-    let currentUserId = req.body.id;
-    let currentUser = await db.User.findById(currentUserId);
-    let currentUserFollowing = currentUser.following;
-    let allPosts = await db.Post.find()
-      .sort({ createdAt: "desc" })
-      .populate("user", { username: true, profileImageUrl: true });
-    let timelinePosts = [];
-    currentUserFollowing.forEach((user) => {
-      for (let i = 0; i < allPosts.length; i++) {
-        if (allPosts[i].user.username === user) {
-          timelinePosts.push(allPosts[i]);
-        }else if(allPosts[i].user.id === currentUserId){
-          timelinePosts.push(allPosts[i]);
-        }
-      }
-    });
+    // let currentUserId = req.body.id;
+    // let currentUser = await db.User.findById(currentUserId);
+    // let currentUserFollowing = currentUser.following;
+    // let allPosts = await db.Post.find()
+    //   .sort({ createdAt: "desc" })
+    //   .populate("user", { username: true, profileImageUrl: true });
+    // let timelinePosts = [];
+    // currentUserFollowing.forEach((user) => {
+    //   for (let i = 0; i < allPosts.length; i++) {
+    //     if (allPosts[i].user.username === user) {
+    //       timelinePosts.push(allPosts[i]);
+    //     }else if(allPosts[i].user.id === currentUserId){
+    //       timelinePosts.push(allPosts[i]);
+    //     }
+    //   }
+    // });
 
-    return res.json(timelinePosts);
+    getTimelinePosts(req.body.id)
+      .then((posts) => {
+        return res.json(posts);
+      })
+      .catch((err) => {
+        return next(err);
+      });
   } catch (error) {
-    return next(err);
+    return next(error);
   }
 });
 

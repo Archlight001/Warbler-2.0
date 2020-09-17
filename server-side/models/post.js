@@ -11,6 +11,12 @@ const postSchema = mongoose.Schema(
     postMediaUrl: {
       type: Array,
     },
+    likedBy:{
+      type:Array
+    },
+    repostedBy:{
+      type:Array
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

@@ -22,7 +22,7 @@ export const removePost = (user_id, post_id) => {
 
 export const fetchPosts = (id) => {
   return (dispatch) => {
-    return apiCall("post", "/api/posts",{id:id})
+    return apiCall("post", "/api/posts", { id: id })
       .then((res) => {
         dispatch(loadPosts(res));
       })
@@ -46,4 +46,17 @@ export const sendNewPost = (data) => (dispatch, getState) => {
   return apiCall("post", `/api/users/${id}/posts`, data)
     .then((res) => {})
     .catch((err) => dispatch(addError(err.message)));
+};
+
+export const like__unlikePosts = (postId, user, id, op) => {
+  return (dispatch) => {
+    return apiCall("post", `/api/users/${id}/posts/like_unlike/${op}`, {
+      postId,
+      user,
+    })
+      .then((posts) => {
+        dispatch(loadPosts(posts));
+      })
+      .catch((err) => dispatch(addError(err.message)));
+  };
 };

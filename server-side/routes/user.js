@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const {getFollowing,getFollowers,followOp,modifyProfile,getUserInfo,checkFollowing} = require("../handlers/user");
 
 router.post("/",getUserInfo)
