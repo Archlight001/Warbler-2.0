@@ -152,3 +152,29 @@ exports.like__unlike__posts = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.repost_op = async(req,res,next)=>{
+  try {
+    let postId = req.body.postId;
+    let users__username = req.body.user;
+
+    let getPost = await db.Post.findById(postId);
+    if (req.params.op === "repost") {
+      getPost.repostedBy.push(users__username);
+    } else if (req.params.op === "remove__poster") {
+      getPost.repostedBy.remove(users__username);
+    }
+
+    await getPost.save();
+
+    getTimelinePosts(req.params.id)
+      .then((posts) => {
+        return res.json(posts);
+      })
+      .catch((err) => {
+        return next(err);
+      });
+  } catch (error) {
+    return next(error);
+  }
+}

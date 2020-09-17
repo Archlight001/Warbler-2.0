@@ -1,0 +1,19 @@
+.message-area{
+    width: 100%;
+}
+
+.message__area__operations,.message__area__icons{
+    display: flex;
+    justify-content: space-between;
+}
+.message__area__icon{
+   padding: 5px;
+}
+
+.message__area__icon>svg:hover{
+    cursor: pointer;
+}
+
+.message__area__icon>span{
+    margin-left: 2px;
+}

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { fetchPosts, removePost } from "../store/actions/posts";
+import {
+  fetchPosts,
+  removePost,
+  like__unlikePosts,
+  repost__op,
+} from "../store/actions/posts";
 import { currentUserInfo } from "../store/actions/user";
 import PostItem from "../components/PostItem";
 import { connect } from "react-redux";
@@ -27,17 +32,27 @@ function PostList(props) {
     followOperation,
     isFollowing,
     modifyProfileInfo,
+    like__unlikePosts,
+    repost__op
   } = props;
 
   let postList = posts.map((m) => (
     <PostItem
       key={m._id}
+      postId={m._id}
       id={m.user._id}
       date={m.createAt}
       text={m.text}
+      currentUsername={currentUser.username}
       postMedia={m.postMediaUrl}
       username={m.user.username}
+      isLiked={m.likedBy.find((user) => currentUser.username === user)}
+      isReposted={m.repostedBy.find((user) => currentUser.username === user)}
       profileImageUrl={m.user.profileImageUrl}
+      noOfLikes={m.likedBy.length}
+      noOfReposts={m.repostedBy.length}
+      like__unlikePosts={like__unlikePosts}
+      repost__op={repost__op}
       removePost={removePost.bind(this, m.user._id, m._id)}
       isCorrectUser={currentUser.id === m.user._id}
     />
@@ -158,10 +173,20 @@ function PostList(props) {
             )}
 
             <ul>
-              <Link to={{pathname:`/profile/${userInfo.username}/followers`,state:{userInfo:userInfo,followOp:"followers"}}}>
+              <Link
+                to={{
+                  pathname: `/profile/${userInfo.username}/followers`,
+                  state: { userInfo: userInfo, followOp: "followers" },
+                }}
+              >
                 <li>{followers} Followers</li>
               </Link>
-              <Link to={{pathname:`/profile/${userInfo.username}/following`,state:{userInfo:userInfo,followOp:"following"}}}>
+              <Link
+                to={{
+                  pathname: `/profile/${userInfo.username}/following`,
+                  state: { userInfo: userInfo, followOp: "following" },
+                }}
+              >
                 <li>
                   {userInfo?.following && userInfo?.following.length} Following
                 </li>
@@ -209,4 +234,6 @@ export default connect(MapReduxStateToProps, {
   currentUserInfo,
   addError,
   removeError,
+  like__unlikePosts,
+  repost__op,
 })(PostList);

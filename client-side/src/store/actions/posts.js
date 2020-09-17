@@ -60,3 +60,16 @@ export const like__unlikePosts = (postId, user, id, op) => {
       .catch((err) => dispatch(addError(err.message)));
   };
 };
+
+export const repost__op = (postId, user, id, op) => {
+  return (dispatch) => {
+    return apiCall("post", `/api/users/${id}/posts/repost_op/${op}`, {
+      postId,
+      user,
+    })
+      .then((posts) => {
+        dispatch(loadPosts(posts));
+      })
+      .catch((err) => dispatch(addError(err.message)));
+  };
+};
