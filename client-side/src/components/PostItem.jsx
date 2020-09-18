@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
 import PostMedia from "./PostMedia";
@@ -23,8 +23,18 @@ export default function PostItem({
   isLiked,
   isReposted,
   like__unlikePosts,
-  repost__op
+  repost__op,
+  repostedByList,
 }) {
+  let repostedBy = "";
+  if (repostedByList[0].length !== 0) {
+    let isPostReposted = repostedByList?.find(
+      (value) => value[0].id === postId
+    );
+    if (isPostReposted !== undefined) {
+      repostedBy = isPostReposted[0].repostedBy;
+    }
+  }
 
   let media = [];
   if (postMedia.length === 1) {
@@ -35,21 +45,33 @@ export default function PostItem({
     });
   }
 
-  let [likedStat,setLike] = useState(isLiked === undefined?false:true);
-  let [repostStat,setRepost] = useState(isReposted === undefined?false:true);
+  let [likedStat, setLike] = useState(isLiked === undefined ? false : true);
+  let [repostStat, setRepost] = useState(
+    isReposted === undefined ? false : true
+  );
 
   let liked = false;
 
   let iconStyle = { color: "rgb(201, 16, 176)" };
 
   function handleLike() {
-    like__unlikePosts(postId, currentUsername, id, likedStat?"unlike":"like");
-    setLike(!likedStat)
+    like__unlikePosts(
+      postId,
+      currentUsername,
+      id,
+      likedStat ? "unlike" : "like"
+    );
+    setLike(!likedStat);
   }
 
-  function handleRepost(){
-    repost__op(postId, currentUsername, id, repostStat?"remove__poster":"repost");
-    setRepost(!repostStat)
+  function handleRepost() {
+    repost__op(
+      postId,
+      currentUsername,
+      id,
+      repostStat ? "remove__poster" : "repost"
+    );
+    setRepost(!repostStat);
   }
   return (
     <div>
@@ -62,19 +84,29 @@ export default function PostItem({
           className="timeline-image"
         />
         <div className="message-area">
-          <Link
-            to={{
-              pathname: `/profile/${username}`,
-              state: { userId: id },
-            }}
-          >
-            @{username} &nbsp;
-          </Link>
-          <span className="text-muted">
-            <Moment className="text-muted" format="Do MM YYYY">
-              {date}
-            </Moment>
-          </span>
+          <div className="message__area__title">
+            <div>
+              <Link
+                to={{
+                  pathname: `/profile/${username}`,
+                  state: { userId: id },
+                }}
+              >
+                @{username} &nbsp;
+              </Link>
+              <span className="text-muted">
+                <Moment className="text-muted" format="Do MM YYYY">
+                  {date}
+                </Moment>
+              </span>
+            </div>
+            {repostedBy !== "" && (
+              <div>
+                <span>Reposted by: {repostedBy} </span>
+              </div>
+            )}
+          </div>
+
           <p>{text}</p>
 
           {postMedia.length !== 0 && <div className="mediaDiv">{media}</div>}
@@ -90,7 +122,7 @@ export default function PostItem({
               </div>
 
               <div
-                style={liked ? iconStyle : { color: "rgb(29, 135, 196)" }}
+                style={repostStat ? iconStyle : { color: "rgb(29, 135, 196)" }}
                 className="message__area__icon"
               >
                 <RotateRightIcon onClick={handleRepost} />

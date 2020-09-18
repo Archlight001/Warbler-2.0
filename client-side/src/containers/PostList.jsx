@@ -36,13 +36,15 @@ function PostList(props) {
     repost__op
   } = props;
 
-  let postList = posts.map((m) => (
+
+  let postList = posts.posts.map((m,index) => (
     <PostItem
-      key={m._id}
+      key={index}
       postId={m._id}
       id={m.user._id}
       date={m.createAt}
       text={m.text}
+      repostedByList={posts.reposters}
       currentUsername={currentUser.username}
       postMedia={m.postMediaUrl}
       username={m.user.username}

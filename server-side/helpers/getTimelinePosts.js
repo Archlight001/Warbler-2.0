@@ -2,7 +2,6 @@ const db = require("../models/index");
 
 async function getTimelinePosts(currentUserId) {
   try {
-      console.log(currentUserId);
     let currentUser = await db.User.findById(currentUserId);
     let currentUserFollowing = currentUser.following;
     let allPosts = await db.Post.find()
@@ -18,7 +17,45 @@ async function getTimelinePosts(currentUserId) {
         }
       }
     });
-    return timelinePosts;
+
+    let repostedPosts = [];
+    let whoReposted = [];
+    currentUserFollowing.forEach((user) => {
+      for (let i = 0; i < allPosts.length; i++) {
+        let findUser = allPosts[i].repostedBy.find(reposted__user=> reposted__user===user);
+        if(findUser!==undefined){
+          let checkRepeatedPosts = repostedPosts.find(post => post.id === allPosts[i].id);
+          if(checkRepeatedPosts === undefined){
+            repostedPosts.push(allPosts[i])
+            whoReposted.push({id:allPosts[i].id,repostedBy:findUser})
+          }         
+        }
+      }
+    });
+
+    
+
+    let filteredRepostedPosts = [];
+    repostedPosts.forEach(post=>{
+      let isDuplicate = timelinePosts.find(tpost => (tpost.id === post.id));
+      if(isDuplicate === undefined){
+        filteredRepostedPosts.push(post);     
+      }
+    })
+
+    let whoRepostedFilter = [];
+    for(let i=0;i<filteredRepostedPosts.length;i++){
+      whoReposted.forEach(post=>{
+        if(post.id === filteredRepostedPosts[i].id){
+          whoRepostedFilter.push(post);
+        }
+      })
+    }
+    filteredRepostedPosts.forEach(post=>{
+      timelinePosts.push(post);
+    })
+
+    return [timelinePosts,whoRepostedFilter]
   } catch (error) {
     return error;
   }
