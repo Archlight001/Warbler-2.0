@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, withRouter, Redirect } from "react-router-dom";
 import Authform from "../components/Authform";
 import Homepage from "../components/Homepage";
+import Likes__Reposts from "./Likes__Reposts";
 import Profile from "./Profile";
 import { authUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
@@ -36,6 +37,10 @@ function Main(props) {
         ) : (
           <Redirect to="/" />
         )}
+      </Route>
+
+      <Route exact path="/post/:postId/:show">
+        <Likes__Reposts list={props.location.state?.list} ops={props.location.state?.ops} />
       </Route>
 
       <Route exact path="/profile/:username/:followOp">

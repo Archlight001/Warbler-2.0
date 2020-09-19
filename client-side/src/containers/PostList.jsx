@@ -48,6 +48,8 @@ function PostList(props) {
       currentUsername={currentUser.username}
       postMedia={m.postMediaUrl}
       username={m.user.username}
+      repostList = {m.repostedBy}
+      likeList = {m.likedBy}
       isLiked={m.likedBy.find((user) => currentUser.username === user)}
       isReposted={m.repostedBy.find((user) => currentUser.username === user)}
       profileImageUrl={m.user.profileImageUrl}

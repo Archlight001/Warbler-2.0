@@ -25,6 +25,8 @@ export default function PostItem({
   like__unlikePosts,
   repost__op,
   repostedByList,
+  repostList,
+  likeList,
 }) {
   let repostedBy = "";
   if (repostedByList[0].length !== 0) {
@@ -49,8 +51,6 @@ export default function PostItem({
   let [repostStat, setRepost] = useState(
     isReposted === undefined ? false : true
   );
-
-  let liked = false;
 
   let iconStyle = { color: "rgb(201, 16, 176)" };
 
@@ -118,7 +118,15 @@ export default function PostItem({
                 className="message__area__icon"
               >
                 <FavoriteIcon onClick={handleLike} />
-                <span>{noOfLikes}</span>
+                <Link
+                  style={likedStat ? iconStyle : { color: "rgb(29, 135, 196)" }}
+                  to={{
+                    pathname: `/post/${postId}/likes`,
+                    state: { list: likeList, ops: "likes" },
+                  }}
+                >
+                  <span>{noOfLikes}</span>
+                </Link>
               </div>
 
               <div
@@ -126,7 +134,17 @@ export default function PostItem({
                 className="message__area__icon"
               >
                 <RotateRightIcon onClick={handleRepost} />
-                <span>{noOfReposts}</span>
+                <Link
+                  style={
+                    repostStat ? iconStyle : { color: "rgb(29, 135, 196)" }
+                  }
+                  to={{
+                    pathname: `/post/${postId}/reposts`,
+                    state: { list: repostList, ops: "reposts" },
+                  }}
+                >
+                  <span>{noOfReposts}</span>
+                </Link>
               </div>
             </div>
 
