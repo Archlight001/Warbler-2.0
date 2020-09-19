@@ -40,7 +40,7 @@ export function followOperation(id, username, op) {
         })
         .catch((err) => {
           dispatch(addError(err.message));
-          reject();
+          reject(err.message);
         });
     });
   };

@@ -40,7 +40,7 @@ function Main(props) {
       </Route>
 
       <Route exact path="/post/:postId/:show">
-        <Likes__Reposts list={props.location.state?.list} ops={props.location.state?.ops} />
+        <Likes__Reposts list={props.location.state?.list} op={props.location.state?.ops} id={currentUser.user.id} />
       </Route>
 
       <Route exact path="/profile/:username/:followOp">

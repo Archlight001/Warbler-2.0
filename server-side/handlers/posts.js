@@ -84,7 +84,7 @@ exports.getcurrentUserPost = async function (req, res, next) {
     let foundPost = await db.Post.find({ user: req.params.id }).populate(
       "user"
     );
-    return res.status(200).json([foundPost,[]]);
+    return res.status(200).json([foundPost, []]);
   } catch (error) {
     return next(error);
   }
@@ -153,7 +153,7 @@ exports.like__unlike__posts = async (req, res, next) => {
   }
 };
 
-exports.repost_op = async(req,res,next)=>{
+exports.repost_op = async (req, res, next) => {
   try {
     let postId = req.body.postId;
     let users__username = req.body.user;
@@ -177,4 +177,18 @@ exports.repost_op = async(req,res,next)=>{
   } catch (error) {
     return next(error);
   }
-}
+};
+
+exports.getList = async (req, res, next) => {
+  try {
+    let list = [];
+    for (let i = 0; i < req.body.list.length; i++) {
+        let findUser = await db.User.find({ username: req.body.list[i] });
+        let {id, username, displayName, profileImageUrl } = findUser[0];
+        list.push({id, username, displayName, profileImageUrl });
+    }
+    return res.json(list);
+  } catch (error) {
+    return next(error);
+  }
+};

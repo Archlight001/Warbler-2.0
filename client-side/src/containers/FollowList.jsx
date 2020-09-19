@@ -4,7 +4,6 @@ import User from "../components/User";
 import { apiCall } from "../services/api";
 import { connect } from "react-redux";
 import { followOperation } from "../store/actions/user";
-import { useHistory } from "react-router-dom";
 
 function FollowList({ userInfo, followOp, followOperation,currentUser }) {
   useEffect(() => {
