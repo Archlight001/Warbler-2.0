@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserAside from "../components/UserAside";
 import PostList from "./PostList";
 import "../css/PostList.css";
+import Search from "./Search";
 
 export default function PostTimeline({ username, profileImageUrl }) {
   return (
@@ -11,6 +12,7 @@ export default function PostTimeline({ username, profileImageUrl }) {
         profileImageUrl={profileImageUrl}
       />
       <PostList />
+      <Search />
     </div>
   );
 }

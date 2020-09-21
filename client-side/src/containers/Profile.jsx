@@ -6,6 +6,7 @@ import { currentUserInfo, followOperation,modifyProfile } from "../store/actions
 import { connect } from "react-redux";
 import { apiCall } from "../services/api";
 import "../css/PostList.css";
+import Search from "./Search";
 
 function Profile({
   username,
@@ -73,6 +74,7 @@ function Profile({
         followOperation={followOperation}
         followers={followers}
       />
+      <Search />
     </div>
   );
 }
