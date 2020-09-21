@@ -10,9 +10,7 @@ function Search({ currentUser }) {
   let [searchValues, setSearchValues] = useState([]);
 
   function handleChange(e) {
-    console.log(e.target.value);
     setParam(e.target.value);
-
     apiCall("post", `/api/userops/${currentUser}/search`, {
       params: e.target.value,
     })
@@ -21,6 +19,7 @@ function Search({ currentUser }) {
           values.map((value, index) => (
             <MiniSearchResults
               key={index}
+              id={value._id}
               displayName={value.displayName}
               username={value.username}
               profileImageUrl={value.profileImageUrl}
@@ -33,7 +32,6 @@ function Search({ currentUser }) {
       });
   }
 
-  function getResults() {}
 
   return (
     <div>
