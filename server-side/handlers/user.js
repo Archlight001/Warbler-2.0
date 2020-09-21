@@ -33,7 +33,7 @@ exports.followOp = async function (req, res, next) {
     let followUsername = req.body.username;
     let followUser = await db.User.findById(currentUserId);
 
-    let currentUserFollowing = followUser.following
+    let currentUserFollowing = followUser.following;
 
     if (req.params.op === "follow") {
       followUser.following.push(followUsername);
@@ -64,7 +64,7 @@ exports.followOp = async function (req, res, next) {
       lastName,
       profileImageUrl,
       username,
-      currentUserFollowing
+      currentUserFollowing,
     });
   } catch (error) {
     return next(error);
@@ -129,7 +129,7 @@ exports.getUserInfo = async function (req, res, next) {
     let userId = req.body.id;
     let currentUserId = req.body.currentUserId;
     let currentUser = await db.User.findById(currentUserId);
-    let currentUserFollowing = currentUser.following
+    let currentUserFollowing = currentUser.following;
     let user = await db.User.findById(userId);
     let {
       id,
@@ -147,8 +147,33 @@ exports.getUserInfo = async function (req, res, next) {
       description,
       profileImageUrl,
       following,
-      currentUserFollowing
+      currentUserFollowing,
     });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.searchUser = async function (req, res, next) {
+  try {
+    let params = req.body.params;
+    let results = [];
+    let searchUser = [];
+    searchUser = await db.User.find({
+      username: { $regex: params, $options: "i" },
+    },'id username displayName profileImageUrl');
+    if(searchUser[0] !== undefined){
+      results.push(searchUser[0]);
+    }
+    
+    searchUser = await db.User.find({
+      displayName: { $regex: params, $options: "i" },
+    },'id username displayName profileImageUrl');
+    if(searchUser[0] !== undefined){
+      results.push(searchUser[0]);
+    }
+    
+    return res.json(results);
   } catch (error) {
     return next(error);
   }
