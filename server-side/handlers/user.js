@@ -158,21 +158,53 @@ exports.searchUser = async function (req, res, next) {
   try {
     let params = req.body.params;
     let results = [];
-    let searchUser = [];
-    searchUser = await db.User.find({
-      username: { $regex: params, $options: "i" },
-    },'id username displayName profileImageUrl');
-    if(searchUser[0] !== undefined){
-      results.push(searchUser[0]);
+    if (params.trim() !== "") {
+      let searchUser = [];
+      searchUser = await db.User.find(
+        {
+          username: { $regex: params, $options: "i" },
+        },
+        "id username displayName profileImageUrl"
+      );
+
+      if (searchUser[0] !== undefined) {
+        if (searchUser.length === 1) {
+          results.push(searchUser[0]);
+        } else {
+          searchUser.forEach((user) => {
+            results.push(user);
+          });
+        }
+      }
+
+      searchUser = await db.User.find(
+        {
+          displayName: { $regex: params, $options: "i" },
+        },
+        "id username displayName profileImageUrl"
+      );
+
+      if (searchUser[0] !== undefined) {
+        if (searchUser.length === 1) {
+          let duplicate = results.find(
+            (result) => result.username === searchUser[0].username
+          );
+          if (duplicate === undefined) {
+            results.push(searchUser[0]);
+          }
+        } else {
+          searchUser.forEach((user) => {
+            let duplicate = results.find(
+              (result) => result.username === user.username
+            );
+            if (duplicate === undefined) {
+              results.push(user);
+            }
+          });
+        }
+      }
     }
-    
-    searchUser = await db.User.find({
-      displayName: { $regex: params, $options: "i" },
-    },'id username displayName profileImageUrl');
-    if(searchUser[0] !== undefined){
-      results.push(searchUser[0]);
-    }
-    
+
     return res.json(results);
   } catch (error) {
     return next(error);
