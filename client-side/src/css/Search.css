@@ -1,56 +1,79 @@
-.search__container{
-display: flex;
+.search__container {
+  display: flex;
+  position: relative;
 }
 
-.search__container>input{
-border: none;  
-}
-.search__icon{
-    background-color: rgb(134, 202, 202);
-    width: 30px;
-    color:white;
-    text-align: center;
+a {
+  text-decoration: none;
 }
 
-.results__container{
-    border: 1px solid;
-    border-color: rgb(134, 202, 202);
-    border-width: thin;
-    background-color: white;
-    width: 100%;
+.search__container > input {
+  border: none;
+}
+.search__icon {
+  background-color: rgb(134, 202, 202);
+  width: 30px;
+  color: white;
+  text-align: center;
+}
+
+.results__container {
+  border: 1px solid;
+  border-color: rgb(134, 202, 202);
+  border-width: thin;
+  background-color: white;
+  width: 100%;
+  position: relative;
+  width: 96%;
 }
 
 .user__profile__mini {
-    display: flex;
-    border: 1px solid;
-    margin: 1px;
-    border-color: rgb(134, 202, 202);
-    border-width: thin;
-    padding-left: 5px;
-    padding-top: 4px;
-  }
-
-.user__profile__mini span{
-    font-size: small;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid;
+  margin: 1px;
+  border-color: rgb(134, 202, 202);
+  border-width: thin;
+  padding-left: 5px;
+  padding-top: 4px;
+  opacity: 0.8;
 }
 
-.user__profile__mini h6{
-    font-weight: 800;
-    margin-bottom: 0px;
+
+.user__profile__mini span {
+  font-size: small;
+}
+
+.user__profile__mini h6 {
+  font-weight: 800;
+  margin-bottom: 0px;
 }
 
 .img__div__mini {
-    border-radius: 50%;
-    width: 40px;
-  }
-  
-  .img__div__mini img {
-    border-radius: 50%;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-  }
+  border-radius: 50%;
+  width: 40px;
+}
 
-  a{
-      text-decoration: none;
-  }
+.img__div__mini img {
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.recommended__list {
+  margin-top: 50%;
+  border: 1px solid;
+  position: relative;
+  border-color: rgb(134, 202, 202);
+}
+
+.follow__btn{
+  padding: 3px;
+}
+
+.otherInfo__div__mini{
+  overflow-x: auto;
+  margin-left: 14px;
+  width: 100px;
+}

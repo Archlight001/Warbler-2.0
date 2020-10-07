@@ -210,3 +210,41 @@ exports.searchUser = async function (req, res, next) {
     return next(error);
   }
 };
+
+exports.fetchRecommendedList = async function (req, res, next) {
+
+  function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
+
+  try {
+    let currentUserId = req.params.id;
+    let getUser = await db.User.findById(currentUserId, "following -_id");
+    let getAllUsers = await db.User.find(
+      {},
+      "id username displayName profileImageUrl"
+    );
+
+    shuffle(getAllUsers);
+
+    let recommendList = [];
+
+    getAllUsers.forEach((user) => {
+      let isFollowing = getUser.following.find((u) => u === user.username);
+      console.log(isFollowing);
+      if (isFollowing === undefined) {
+        if (user.id !== currentUserId) {
+          recommendList.push(user);
+        }
+      }
+
+      if(recommendList.length === 5){
+        return
+      }
+    });
+
+    return res.json(recommendList);
+  } catch (error) {
+    return next(error);
+  }
+};

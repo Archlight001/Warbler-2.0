@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { apiCall } from "../services/api";
 import MiniSearchResults from "../components/MiniSearchResults";
@@ -8,6 +8,26 @@ import { connect } from "react-redux";
 function Search({ currentUser }) {
   let [param, setParam] = useState("");
   let [searchValues, setSearchValues] = useState([]);
+  let [recommendList, setRecommendList] = useState([]);
+
+  useEffect(() => {
+    apiCall("get", `/api/userops/${currentUser}/recommend`)
+      .then((values) => {
+        setRecommendList(values.map((value, index) => (
+          <MiniSearchResults
+            key={index}
+            id={value._id}
+            displayName={value.displayName}
+            username={value.username}
+            profileImageUrl={value.profileImageUrl}
+            showFollowButton
+          />
+        )))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   function handleChange(e) {
     setParam(e.target.value);
@@ -32,23 +52,28 @@ function Search({ currentUser }) {
       });
   }
 
-
+  
   return (
     <div>
-      <div className="search__container">
-        <input
-          value={param}
-          onChange={handleChange}
-          type="text"
-          placeholder="Search"
-        />
-        <div className="search__icon">
-          <SearchIcon />
+      <div className="search">
+        <div className="search__container">
+          <input
+            value={param}
+            onChange={handleChange}
+            type="text"
+            placeholder="Search"
+          />
+          <div className="search__icon">
+            <SearchIcon />
+          </div>
         </div>
+        {searchValues.length !== 0 && (
+          <div className="results__container">{searchValues}</div>
+        )}
       </div>
-      {searchValues.length !== 0 && (
-        <div className="results__container">{searchValues}</div>
-      )}
+      <div className="recommended__list">
+        {recommendList}
+      </div>
     </div>
   );
 }
