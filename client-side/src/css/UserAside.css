@@ -1,20 +1,33 @@
-.img-div{
-    border-radius: 50%;
-    width: 150px;
+.panel__body h4{
+    margin-top:5%;
+    margin-left: 5%;
+    font-style: italic;
+    font-weight: bolder;
+    
 }
 
-.img-div img{
+.useraside__img__div{
+    border-radius: 50%;
+    width: 100%;
+}
+
+.useraside__img__div img{
     border-radius: 50%;
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
 }
 
-.navigation{
+.useraside__navigation{
     display: flex;
     flex-direction: column;
 }
 
-.navigation button{
+.useraside__navigation button{
     margin-top: 10px;
+    border-color: rgb(134, 202, 202);
+    background-color: rgb(134, 202, 202);
+    font-weight: bolder;
+    color: rgb(255, 255, 255);
+    width:100%;
 }

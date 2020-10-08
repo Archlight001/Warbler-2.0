@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 export default function UserAside({ profileImageUrl, username, show }) {
   return (
     <aside className="col-sm-2">
-      <div className="panel panel-default">
-        <div className="panel-body">
-          <div className="img-div">
+      <div className="panel panel__default">
+        <div className="panel__body">
+          <div className="useraside__img__div">
             <img
               src={`http://${profileImageUrl}` || DefaultProfileImg}
               alt={username}
@@ -17,13 +17,13 @@ export default function UserAside({ profileImageUrl, username, show }) {
             />
           </div>
 
-          <h4>{username}</h4>
-          <div className="navigation">
+            <h4>{username}</h4>
+          <div className="useraside__navigation">
             <Link to="/">
-              <button className="btn btn-success">Home</button>
+              <button className="btn">Home</button>
             </Link>
             <Link to="/profile">
-              <button className="btn btn-success">Profile</button>
+              <button className="btn">Profile</button>
             </Link>
           </div>
         </div>

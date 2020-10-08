@@ -36,7 +36,7 @@ function MiniSearchResults({
           <span>@{username}</span>
         </div>
         {showFollowButton && (
-          <div className="follow__btn">
+          <div className="follow__btn__mini">
             <button
               onClick={handleFollow.bind(this, currentUser.id, username)}
               className="btn btn-info"

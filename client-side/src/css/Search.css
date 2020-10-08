@@ -9,10 +9,11 @@ a {
 
 .search__container > input {
   border: none;
+  width: 100%;
 }
 .search__icon {
   background-color: rgb(134, 202, 202);
-  width: 30px;
+  width: fit-content;
   color: white;
   text-align: center;
 }
@@ -51,7 +52,7 @@ a {
 
 .img__div__mini {
   border-radius: 50%;
-  width: 40px;
+  width: 20%;
 }
 
 .img__div__mini img {
@@ -68,12 +69,19 @@ a {
   border-color: rgb(134, 202, 202);
 }
 
-.follow__btn{
+.follow__btn__mini{
+  margin: 0 auto;
   padding: 3px;
+}
+
+.follow__btn__mini >button{
+  padding: 9px;
+  font-size: smaller;
 }
 
 .otherInfo__div__mini{
   overflow-x: auto;
-  margin-left: 14px;
-  width: 100px;
+  margin-left: 5px;
+  padding: 1%;
+  width: fit-content;
 }
