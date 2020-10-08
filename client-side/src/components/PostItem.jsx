@@ -83,7 +83,7 @@ export default function PostItem({
           width="100"
           className="timeline-image"
         />
-        <div className="message-area">
+        <div className="message__area">
           <div className="message__area__title">
             <div>
               <Link
