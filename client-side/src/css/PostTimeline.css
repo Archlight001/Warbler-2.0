@@ -1,3 +1,23 @@
 .general__container{
     display: flex;
 }
+
+.side__bar{
+    width: 150px;
+    animation: showSidebar 0.5s linear;
+    position: absolute;
+    top: 40px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;
+    background-color: rgb(201, 198, 198);
+}
+
+
+
+@keyframes showSidebar{
+    from {width: 0px;}
+    to {width:150px;}
+}
+

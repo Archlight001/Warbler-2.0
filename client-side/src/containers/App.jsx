@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "../store";
@@ -20,12 +20,18 @@ if (localStorage.jwtToken) {
 }
 
 function App() {
+  var [sidebar,setSidebar] = useState(false)
+
+  function showSidebar(){
+    setSidebar(!sidebar)
+  }
+
   return (
     <Provider store={store}>
       <BrowserRouter>
         <div>
-          <Navbar />
-          <Main />
+          <Navbar sidebar={sidebar} showSidebar={showSidebar} />
+          <Main sidebar={sidebar} showSidebar={showSidebar} />
         </div>
       </BrowserRouter>
     </Provider>

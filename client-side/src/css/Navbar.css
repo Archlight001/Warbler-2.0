@@ -32,6 +32,28 @@
   ul.nav.navbar-nav li {
     margin: 0 0.5rem;
   }
+
+  .hamburger__div div{
+    height: 2px;
+    width: 17px;
+    transition: 0.4s;
+    background-color: lightyellow;
+    margin-bottom: 2px;
+  }
+
+  .change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 4.5px);
+  transform: rotate(-45deg) translate(-9px, 4.5px);
+}
+
+.change .bar2 {
+  opacity: 0;
+}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-1px, 3px);
+  transform: rotate(45deg) translate(-1px, 3px);
+}
   
 
  

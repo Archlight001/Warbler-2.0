@@ -19,7 +19,7 @@ function Profile({
   location,
   otherUser,
   followOperation,
-  modifyProfile
+  modifyProfile,sidebar,showSidebar
 }) {
   useEffect(() => {
     if (otherUser) {
@@ -65,7 +65,15 @@ function Profile({
 
   return (
     <div className="general__container">
-      <UserAside username={username} profileImageUrl={profileImageUrl} />
+       {window.screen.width > 600 ? (
+        <UserAside username={username} profileImageUrl={profileImageUrl} />
+      ) : (
+        sidebar && (
+          <div className="side__bar">
+            <UserAside username={username} profileImageUrl={profileImageUrl} showSidebar={showSidebar} />
+          </div>
+        )
+      )}
       <PostList
         profile
         userInfo={userInfo}
@@ -75,7 +83,7 @@ function Profile({
         followOperation={followOperation}
         followers={followers}
       />
-      <Search />
+      {/* <Search /> */}
     </div>
   );
 }

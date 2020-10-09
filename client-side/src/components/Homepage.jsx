@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import PostTimeline from "../containers/PostTimeline";
 
 
-export default function Homepage({currentUser}) {
+export default function Homepage({currentUser,sidebar,showSidebar}) {
   if(!currentUser.isAuthenticated){
     return (
       <div className="home-hero">
@@ -18,7 +18,7 @@ export default function Homepage({currentUser}) {
   }else{
     return (
       <div>
-        <PostTimeline profileImageUrl ={currentUser.user.profileImageUrl} username={currentUser.user.username} />
+        <PostTimeline sidebar={sidebar} showSidebar={showSidebar} profileImageUrl ={currentUser.user.profileImageUrl} username={currentUser.user.username} />
       </div>
     )
   }

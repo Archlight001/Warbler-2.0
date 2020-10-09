@@ -5,15 +5,22 @@ import "../css/PostList.css";
 import "../css/PostTimeline.css";
 import Search from "./Search";
 
-export default function PostTimeline({ username, profileImageUrl }) {
+export default function PostTimeline({ username, profileImageUrl, sidebar,showSidebar }) {
   return (
     <div className="general__container">
-      <UserAside
-        username={username}
-        profileImageUrl={profileImageUrl}
-      />
+      {window.screen.width > 600 ? (
+        <UserAside username={username} profileImageUrl={profileImageUrl} />
+      ) : (
+        sidebar && (
+          <div className="side__bar">
+            <UserAside username={username} profileImageUrl={profileImageUrl} showSidebar={showSidebar}/>
+          </div>
+        )
+      )}
+
       <PostList />
-      <Search />
+
+      {/* <Search /> */}
     </div>
   );
 }

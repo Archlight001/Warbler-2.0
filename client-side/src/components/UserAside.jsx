@@ -3,7 +3,7 @@ import DefaultProfileImg from "../images/default-profile-image.jpg";
 import "../css/UserAside.css";
 import { Link } from "react-router-dom";
 
-export default function UserAside({ profileImageUrl, username, show }) {
+export default function UserAside({ profileImageUrl, username, showSidebar }) {
   return (
     <aside className="col-sm-2">
       <div className="panel panel__default">
@@ -20,10 +20,10 @@ export default function UserAside({ profileImageUrl, username, show }) {
             <h4>{username}</h4>
           <div className="useraside__navigation">
             <Link to="/">
-              <button className="btn">Home</button>
+              <button className="btn" onClick={showSidebar}>Home</button>
             </Link>
-            <Link to="/profile">
-              <button className="btn">Profile</button>
+            <Link to="/profile" >
+              <button className="btn" onClick={showSidebar}>Profile</button>
             </Link>
           </div>
         </div>

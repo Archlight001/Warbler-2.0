@@ -15,7 +15,7 @@ function Main(props) {
   return (
     <div className="container">
       <Route exact path="/">
-        <Homepage {...props} currentUser={currentUser} />
+        <Homepage {...props}  currentUser={currentUser} />
       </Route>
 
       <Route exact path="/profile">

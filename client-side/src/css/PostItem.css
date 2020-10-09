@@ -31,10 +31,10 @@
 }
 
 .timeline-image {
-  border-radius: 50px;
+  border-radius: 50%;
   height: 48px;
   width: 48px;
-  margin: 2px 30px 10px;
+  margin-right: 10px;
 }
 
 .mediaDiv {
