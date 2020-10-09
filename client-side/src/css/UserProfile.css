@@ -1,7 +1,7 @@
 #profile {
-  background-color: white;
   display: flex;
   padding: 7px 20px 12px;
+  width: 100%;
 }
 
 .profile-details {
@@ -15,15 +15,16 @@
 
 .profile-details li {
   display: inline;
-  padding: 20px;
+  padding: 1.5%;
 }
+
 .profile-details i:hover {
   cursor: pointer;
 }
 
 .profile__img__div {
   border-radius: 50%;
-  width: 80px;
+  width: 20%;
 }
 
 .profile__img__div img {
@@ -58,9 +59,12 @@
   display: flex;
 }
 
+.edit__description {
+  display: flex;
+}
+
 .edit__icons {
   margin-left: 15px;
-  float: right;
 }
 
 .edit__icons > div:hover {

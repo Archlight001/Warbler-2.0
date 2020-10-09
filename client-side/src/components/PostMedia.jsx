@@ -27,7 +27,7 @@ export default function PostMedia({ postMedia, stretch }) {
   }
 
   return (
-    <div style={stretch && { width: "100%" }}>
+    <div style={stretch && { width: "60%" }}>
       {mediaType === "image" ? (
         <img
           onClick={handleClick}
