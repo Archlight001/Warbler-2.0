@@ -6,6 +6,12 @@ A fullstack application that mimics some of the features of the widely popular T
 
 This project is currently in development. Users can now signup and make posts, making the entire application responsive is currently ongoing
 
+## Screen Shot(s)
+
+![Alt text](/screenshots/home.png "Home Image")
+
+![Alt text](/screenshots/timeline.png "Timeline Image")
+
 ## Installation and Setup Instructions
 
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.
