@@ -11,11 +11,15 @@ This project is currently in development. Users can now signup and make posts, m
 Clone down this repository. You will need `node` and `npm` installed globally on your machine.
 
 Installation:
+
 Server-side- Navigate to the server-side folder and run npm install on your cmd interface
+
 Client-side - Navigate to the client-side folder and run npm install on your cmd interface
 
 To Start Application:
+
 Server-side - Run node index.js (if nodemon is installed nodemon index.js) in your server-side folder
+
 Client-side - RUn npm start in your client-side folder
 
 To Visit App:
