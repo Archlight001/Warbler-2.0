@@ -20,7 +20,7 @@ To Start Application:
 
 Server-side - Run node index.js (if nodemon is installed nodemon index.js) in your server-side folder
 
-Client-side - RUn npm start in your client-side folder
+Client-side - Run npm start in your client-side folder
 
 To Visit App:
 `localhost:3000/`
