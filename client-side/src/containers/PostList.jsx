@@ -16,7 +16,7 @@ function PostList(props) {
     if (!props.profile) {
       props.fetchPosts(props.currentUser.id);
     }
-  }, [props.profile]);
+  }, [props.profile,props.posts]);
 
   const {
     posts,

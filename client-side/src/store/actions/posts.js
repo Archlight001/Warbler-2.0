@@ -1,6 +1,6 @@
 import { apiCall } from "../../services/api";
 import { addError } from "./errors";
-import { LOAD_POSTS, REMOVE_POST } from "../actionTypes";
+import { ADD_POST, LOAD_POSTS, REMOVE_POST } from "../actionTypes";
 
 export const loadPosts = (posts) => ({
   type: LOAD_POSTS,
@@ -11,6 +11,11 @@ export const remove = (id) => ({
   type: REMOVE_POST,
   id,
 });
+
+export const addPost = (post) =>({
+  type:ADD_POST,
+  post
+})
 
 export const removePost = (user_id, post_id) => {
   return (dispatch) => {
@@ -44,7 +49,7 @@ export const sendNewPost = (data) => (dispatch, getState) => {
   let { currentUser } = getState();
   const id = currentUser.user.id;
   return apiCall("post", `/api/users/${id}/posts`, data)
-    .then((res) => {})
+    .then((post) => dispatch(addPost(post)))
     .catch((err) => dispatch(addError(err.message)));
 };
 
