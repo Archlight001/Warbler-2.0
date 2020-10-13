@@ -54,71 +54,78 @@ export default function Authform({
                 <div className="alert alert-danger">{errorMessage}</div>
               )}
 
-              <label htmlFor="email">Email Address:</label>
-              <input
-                className="form-control"
-                id="email"
-                name="email"
-                ref={register({ required: "Email Address Required" })}
-                type="email"
-              />
+              <div>
+                {signup && (
+                  <div>
+                    <label htmlFor="username">First Name:</label>
+                    <input
+                      className="form-control"
+                      id="firstName"
+                      name="firstName"
+                      ref={register({ required: "First Name is required" })}
+                      type="text"
+                    />
 
-              <label htmlFor="password">Password:</label>
-              <input
-                className="form-control"
-                id="password"
-                name="password"
-                ref={register({
-                  required: "Password field is required",
-                  minLength: {
-                    value: 8,
-                    message: "Your password is too short",
-                  },
-                })}
-                type="password"
-              />
+                    <label htmlFor="username">Last Name:</label>
+                    <input
+                      className="form-control"
+                      id="lastName"
+                      name="lastName"
+                      ref={register({ required: "Last Name is required" })}
+                      type="text"
+                    />
+                  </div>
+                )}
 
-              {signup && (
-                <div>
-                  <label htmlFor="username">Username:</label>
-                  <input
-                    className="form-control"
-                    id="username"
-                    name="username"
-                    ref={register({ required: "Username is required" })}
-                    type="text"
-                  />
+                <label htmlFor="email">Email Address:</label>
+                <input
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  ref={register({ required: "Email Address Required" })}
+                  type="email"
+                />
 
-                  <label htmlFor="username">First Name:</label>
-                  <input
-                    className="form-control"
-                    id="firstName"
-                    name="firstName"
-                    ref={register({ required: "First Name is required" })}
-                    type="text"
-                  />
+                {signup && (
+                  <div>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                      className="form-control"
+                      id="username"
+                      name="username"
+                      ref={register({ required: "Username is required" })}
+                      type="text"
+                    />
 
-                  <label htmlFor="username">Last Name:</label>
-                  <input
-                    className="form-control"
-                    id="lastName"
-                    name="lastName"
-                    ref={register({ required: "Last Name is required" })}
-                    type="text"
-                  />
+                    <label htmlFor="image-url">Profile Image</label>
+                    <input
+                      className="form-control"
+                      id="image-url"
+                      name="profile_pic"
+                      ref={register({
+                        required: "Please select a profile image",
+                      })}
+                      type="file"
+                    />
+                  </div>
+                )}
 
-                  <label htmlFor="image-url">Profile Image</label>
-                  <input
-                    className="form-control"
-                    id="image-url"
-                    name="profile_pic"
-                    ref={register({
-                      required: "Please select a profile image",
-                    })}
-                    type="file"
-                  />
-                </div>
-              )}
+                <label htmlFor="password">Password:</label>
+                <input
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  ref={register({
+                    required: "Password field is required",
+                    minLength: {
+                      value: 8,
+                      message: "Your password is too short",
+                    },
+                  })}
+                  type="password"
+                />
+              </div>
+
               <button
                 type="submit"
                 className="btn btn-primary btn-block btn-lg"
