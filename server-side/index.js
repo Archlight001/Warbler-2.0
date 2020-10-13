@@ -23,10 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
-app.use("/api/userops/:id", userOpsRoutes);
-app.use("/api/users/:id/posts", loginRequired, postRoutes);
+app.use("/api/userops/:id",loginRequired, userOpsRoutes);
+app.use("/api/users/:id/posts", loginRequired,ensureCorrectUser, postRoutes);
 
-app.post("/api/posts", loginRequired, async function (req, res, next) {
+app.post("/api/posts", loginRequired,async function (req, res, next) {
   try {
     // let currentUserId = req.body.id;
     // let currentUser = await db.User.findById(currentUserId);

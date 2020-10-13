@@ -31,7 +31,7 @@ export default function PostTimeline({
 
         <PostList />
 
-        <Search />
+        {window.screen.width>600 && <Search />}
         {/* {window.screen.width < 600 && <HSFooter />} */}
       </div>
       

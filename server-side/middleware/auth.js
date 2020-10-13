@@ -32,14 +32,14 @@ exports.ensureCorrectUser = function(req,res,next){
             } else {
               return next({
                 status: 401,
-                message: "Unauthorized",
+                message: [decoded.id,req.params.id]
               });
             }
           }); 
     } catch (error) {
         return next({
             error:401,
-            message:"Unauthorized"
+            message:error.message
         })
     }
 }
