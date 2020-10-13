@@ -12,24 +12,33 @@ function PostForm(props) {
     props.history.push("/");
   };
 
-  const style ={float:"right"}
+  const style = { float: "right" };
 
   return (
     <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
-      {props.errors.message || errors.message  && (
-        <div className="alert alert-danger">{props.errors.message || errors.message.message}</div>
-      )}
+      {props.errors.message ||
+        (errors.message && (
+          <div className="alert alert-danger">
+            {props.errors.message || errors.message.message}
+          </div>
+        ))}
 
-      <input
-        type="text"
+      <textarea
+        cols="30"
+        rows="8"
+        style={{ marginBottom: "2%" }}
         className="form-control"
         name="text"
         ref={register({ required: "Please input a new Post" })}
       />
-      <input type="file" name="media" id="media" ref={register} multiple/>
+
+      <input type="file" name="media" id="media" ref={register} multiple />
       <button type="submit" style={style} className="btn btn-success">
         Add my Post!
       </button>
+      <p style={{ fontStyle: "italic", color: "red", fontSize: "small" }}>
+        Minimum of 4 images or 1 video file per post
+      </p>
     </form>
   );
 }

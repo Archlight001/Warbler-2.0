@@ -83,7 +83,7 @@ function Profile({
         followOperation={followOperation}
         followers={followers}
       />
-      {/* <Search /> */}
+      <Search />
     </div>
   );
 }
