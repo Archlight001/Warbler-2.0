@@ -28,16 +28,19 @@ a {
   width: 96%;
 }
 
-.user__profile__mini {
-  display: flex;
-  flex-wrap: wrap;
+.general__mini__profile{
   border: 1px solid;
   margin: 1px;
   border-color: rgb(134, 202, 202);
   border-width: thin;
+  opacity: 0.8;
+}
+
+.user__profile__mini {
+  display: flex;
+  flex-wrap: wrap; 
   padding-left: 5px;
   padding-top: 4px;
-  opacity: 0.8;
 }
 
 
@@ -70,7 +73,9 @@ a {
 }
 
 .follow__btn__mini{
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   padding: 3px;
 }
 

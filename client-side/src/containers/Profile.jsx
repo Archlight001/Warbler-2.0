@@ -24,10 +24,10 @@ function Profile({
   useEffect(() => {
     if (otherUser) {
       currentUserInfo(location.state?.userId,currentUser.id);
-      fetchCurrentUserPosts(location.state?.userId);
+      fetchCurrentUserPosts(location.state?.userId,currentUser.id);
     } else {
       currentUserInfo(currentUser.id,currentUser.id);
-      fetchCurrentUserPosts(location.state?.userId || currentUser.id);
+      fetchCurrentUserPosts(location.state?.userId || currentUser.id,currentUser.id);
     }
   }, []);
 

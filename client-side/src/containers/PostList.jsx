@@ -38,6 +38,7 @@ function PostList(props) {
       key={index}
       postId={m._id}
       id={m.user._id}
+      currentUserId = {currentUser.id}
       date={m.createAt}
       text={m.text}
       repostedByList={posts.reposters}

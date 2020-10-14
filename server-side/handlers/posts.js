@@ -81,7 +81,7 @@ exports.createPost = async function (req, res, next) {
 
 exports.getcurrentUserPost = async function (req, res, next) {
   try {
-    let foundPost = await db.Post.find({ user: req.params.id }).populate(
+    let foundPost = await db.Post.find({ user: req.body.id }).populate(
       "user"
     );
     return res.status(200).json([foundPost, []]);

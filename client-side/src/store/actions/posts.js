@@ -35,9 +35,9 @@ export const fetchPosts = (id) => {
   };
 };
 
-export const fetchCurrentUserPosts = (user_id) => {
+export const fetchCurrentUserPosts = (user_id,currentUserId) => {
   return (dispatch) => {
-    return apiCall("get", `/api/users/${user_id}/posts`)
+    return apiCall("post", `/api/users/${currentUserId}/posts/otheruserposts`,{id:user_id})
       .then((res) => {
         dispatch(loadPosts(res));
       })

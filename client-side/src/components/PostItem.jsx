@@ -9,6 +9,7 @@ import "../css/PostItem.css";
 
 export default function PostItem({
   id,
+  currentUserId,
   postId,
   date,
   profileImageUrl,
@@ -58,7 +59,7 @@ export default function PostItem({
     like__unlikePosts(
       postId,
       currentUsername,
-      id,
+      currentUserId,
       likedStat ? "unlike" : "like"
     );
     setLike(!likedStat);
@@ -68,7 +69,7 @@ export default function PostItem({
     repost__op(
       postId,
       currentUsername,
-      id,
+      currentUserId,
       repostStat ? "remove__poster" : "repost"
     );
     setRepost(!repostStat);
