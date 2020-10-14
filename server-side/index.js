@@ -12,7 +12,7 @@ const db = require("./models");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const app = express();
-const PORT = 8082;
+const PORT = process.env.PORT || 8082;
 
 process.env["ROOT"] = __dirname;
 

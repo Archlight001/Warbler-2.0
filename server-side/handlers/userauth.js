@@ -59,7 +59,6 @@ exports.signup = async function (req, res, next) {
     let newUser = {
       ...req.body,
       displayName: displayName,
-      following:["denokela","Sama"],
       description: `Hi I'm ${displayName}`,
       profileImageUrl: imageUrl,
     };
