@@ -72,6 +72,13 @@ a {
   border-color: rgb(134, 202, 202);
 }
 
+#rc__header{
+  text-align: center;
+  font-weight: bolder;
+  color:rgb(26, 100, 122);
+  margin-top: 2px;
+
+}
 .follow__btn__mini{
   width: 100%;
   display: flex;

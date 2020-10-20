@@ -83,7 +83,7 @@ function Profile({
         followOperation={followOperation}
         followers={followers}
       />
-      <Search />
+      {window.screen.width>600 && <Search />}
     </div>
   );
 }

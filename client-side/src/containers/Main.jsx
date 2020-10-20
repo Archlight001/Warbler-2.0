@@ -10,6 +10,7 @@ import { removeError } from "../store/actions/errors";
 import withAuth, { withId } from "../hocs/withAuth";
 import PostForm from "../components/PostForm";
 import FollowList from "./FollowList";
+import Search from "./Search";
 function Main(props) {
   const { authUser, errors, removeError, currentUser } = props;
   return (
@@ -70,6 +71,10 @@ function Main(props) {
           buttonText="Sign in"
         />
       </Route>
+
+      {window.screen.width<600 && <Route exact path="/search">
+        <Search />
+        </Route>}
 
       <Route path="/users/:id/posts/new" component={withAuth(PostForm)} />
     </div>

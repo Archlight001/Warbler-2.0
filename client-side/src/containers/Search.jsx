@@ -72,6 +72,7 @@ function Search({ currentUser }) {
         )}
       </div>
       <div className="recommended__list">
+        <h6 id="rc__header">RECOMMENDED LIST</h6>
         {recommendList}
       </div>
     </div>

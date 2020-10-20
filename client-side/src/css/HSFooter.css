@@ -20,7 +20,7 @@
 }
 
 
-.hs__footer__home__icon:hover,.hs__footer__search__icon:hover{
+.hs__footer__home__icon:active,.hs__footer__search__icon:active{
     background-color: rgb(185, 197, 206);
 }
 
