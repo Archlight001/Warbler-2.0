@@ -1,3 +1,18 @@
 .container{
     max-width: 1300px;
 }
+
+.main__combo__component{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main__nav__component{
+    flex-basis: 20vh;
+}
+
+.main__component{
+    overflow: scroll;
+  
+}

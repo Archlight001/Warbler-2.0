@@ -1,13 +1,29 @@
 .hs__footer__main__container{
-    position: absolute;
-    height: 100%;
+    position: sticky;
     width: 100%;
 }
 
 .hs__footer__sub__container{
+    display: flex;
     width: 100%;
-    position: fixed;
-    top: 97vh;
-    height: 40%;
-    background-color: yellow;
+    height: 40px;
+    background-color: rgb(148, 155, 160);
+}
+.hs__footer__home__icon,.hs__footer__search__icon{
+    height: 100%;
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+
+.hs__footer__home__icon:hover,.hs__footer__search__icon:hover{
+    background-color: rgb(185, 197, 206);
+}
+
+.hs__footer__search__icon{
+    border-left: solid rgb(201, 201, 197);
 }
