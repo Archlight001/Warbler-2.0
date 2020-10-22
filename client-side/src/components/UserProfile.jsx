@@ -50,7 +50,7 @@ function UserProfile({
   return (
       <div>
     <li className="list-group-item">
-    <div id="profile">
+    <div id="profile" style={window.screen.width<600?{"display":"block"}:{}}>
       <div className="profile__img__div">
         <img
           src={`http://${profileImageUrl}` || DefaultProfileImg}

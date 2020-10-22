@@ -23,8 +23,9 @@
 }
 
 .profile__img__div {
+  margin: 0 auto;
   border-radius: 50%;
-  width: 20%;
+  width: 40%;
 }
 
 .profile__img__div img {

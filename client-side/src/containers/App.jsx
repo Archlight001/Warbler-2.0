@@ -31,7 +31,6 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <div className="main__combo__component">
-
           <div className="main__nav__component">
             <Navbar sidebar={sidebar} showSidebar={showSidebar} />
           </div>
@@ -43,8 +42,6 @@ function App() {
           <div className="main__footer__component">
             {window.screen.width < 600 && (
               <HSFooter
-                screenWidth={window.screen.width}
-                screenHeight={window.screen.height}
               />
             )}
           </div>

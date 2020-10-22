@@ -18,12 +18,18 @@
   display: flex;
   justify-content: space-between;
 }
+
 .message__area__icon {
-  padding: 5px;
+  padding-top: 5%;
+  margin-right: 10px;
 }
 
 .message__area__icon > svg:hover {
   cursor: pointer;
+}
+
+.message__area .btn{
+  height: 10%;
 }
 
 .message__area__icon > span {
