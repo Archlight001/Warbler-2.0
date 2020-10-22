@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 
 import React, { useEffect } from "react";
 
-export default function withAuth(ComponentToBeRendered) {
+export default function withAuth(ComponentToBeRendered,prop) {
   function Authenticate(props) {
     useEffect(() => {
       if (props.isAuthenticated === false) {
@@ -10,7 +10,8 @@ export default function withAuth(ComponentToBeRendered) {
       }
     });
 
-    return <ComponentToBeRendered {...props} />;
+
+    return <ComponentToBeRendered {...props} sidebar={prop.sidebar} showSidebar={prop.showSidebar} />;
   }
 
   function mapReduxStateToProps(state) {

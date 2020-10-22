@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { sendNewPost } from "../store/actions/posts";
 import { useForm } from "react-hook-form";
+import UserAside from "./UserAside";
 
 function PostForm(props) {
   const { register, handleSubmit, errors } = useForm();
@@ -15,36 +16,49 @@ function PostForm(props) {
   const style = { float: "right" };
 
   return (
-    <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
-      {props.errors.message ||
-        (errors.message && (
-          <div className="alert alert-danger">
-            {props.errors.message || errors.message.message}
-          </div>
-        ))}
+    <div className="general__container">
+      {props.sidebar && (
+        <div className="side__bar">
+          <UserAside
+            username={props.currentUser.user.username}
+            profileImageUrl={props.currentUser.user.profileImageUrl}
+            showSidebar={props.showSidebar}
+          />
+        </div>
+      )}
 
-      <textarea
-        cols="30"
-        rows="8"
-        style={{ marginBottom: "2%" }}
-        className="form-control"
-        name="text"
-        ref={register({ required: "Please input a new Post" })}
-      />
+      <form id="postForm" onSubmit={handleSubmit(onSubmit)}>
+        {props.errors.message ||
+          (errors.message && (
+            <div className="alert alert-danger">
+              {props.errors.message || errors.message.message}
+            </div>
+          ))}
 
-      <input type="file" name="media" id="media" ref={register} multiple />
-      <button type="submit" style={style} className="btn btn-success">
-        Add my Post!
-      </button>
-      <p style={{ fontStyle: "italic", color: "red", fontSize: "small" }}>
-        Minimum of 4 images or 1 video file per post
-      </p>
-    </form>
+        <textarea
+          cols="30"
+          rows="8"
+          style={{ marginBottom: "2%" }}
+          className="form-control"
+          name="text"
+          ref={register({ required: "Please input a new Post" })}
+        />
+
+        <input type="file" name="media" id="media" ref={register} multiple />
+        <button type="submit" style={style} className="btn btn-success">
+          Add my Post!
+        </button>
+        <p style={{ fontStyle: "italic", color: "red", fontSize: "small" }}>
+          Minimum of 4 images or 1 video file per post
+        </p>
+      </form>
+    </div>
   );
 }
 
 function mapReduxStatetoProps(state) {
   return {
+    currentUser:state.currentUser,
     errors: state.errors,
   };
 }

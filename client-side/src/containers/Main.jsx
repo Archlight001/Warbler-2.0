@@ -90,7 +90,7 @@ function Main(props) {
         </Route>
       )}
 
-      <Route path="/users/:id/posts/new" component={withAuth(PostForm)} />
+      <Route path="/users/:id/posts/new" component={withAuth(PostForm,props)} />
     </div>
   );
 }

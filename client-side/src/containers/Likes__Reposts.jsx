@@ -56,7 +56,7 @@ const Likes__Reposts = ({
   }
 
   return (
-    <div className="general__conatiner">
+    <div className="general__container">
       {sidebar && (
         <div className="side__bar">
           <UserAside
