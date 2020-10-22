@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { apiCall } from "../services/api";
 import { connect } from "react-redux";
-import { currentUserInfo} from "../store/actions/user";
-import "../css/Likes__Reposts.css"
+import { currentUserInfo } from "../store/actions/user";
+import "../css/Likes__Reposts.css";
 import { followOperation } from "../store/actions/user";
 import User from "../components/User";
+import UserAside from "../components/UserAside";
 
-const Likes__Reposts = ({ list, op, id,currentUser,followOperation,userInfo,currentUserInfo }) => {
+const Likes__Reposts = ({
+  list,
+  op,
+  id,
+  currentUser,
+  followOperation,
+  userInfo,
+  currentUserInfo,
+  sidebar,
+  showSidebar,
+  profileImageUrl,
+  username,
+}) => {
   useEffect(() => {
-      currentUserInfo(currentUser.id,currentUser.id)
+    currentUserInfo(currentUser.id, currentUser.id);
     apiCall("post", `/api/users/${id}/posts/list`, { list, op })
       .then((list) => {
         setList(list);
@@ -21,22 +34,41 @@ const Likes__Reposts = ({ list, op, id,currentUser,followOperation,userInfo,curr
   let [dbList, setList] = useState([]);
 
   let Users = [];
-  if(dbList.length !== undefined){
+  if (dbList.length !== undefined) {
     Users = dbList?.map((data, index) => (
-        <User
-          key={index}
-          id={currentUser.id}
-          currentUser__username = {currentUser.username}
-          displayName={data.displayName}
-          isFollowing={userInfo.currentUserFollowing?.find(value => (value === data.username)) !== undefined?true:false}
-          username={data.username}
-          followOperation = {followOperation}
-          profileImageUrl={data.profileImageUrl}
-        />
-      ));
+      <User
+        key={index}
+        id={currentUser.id}
+        currentUser__username={currentUser.username}
+        displayName={data.displayName}
+        isFollowing={
+          userInfo.currentUserFollowing?.find(
+            (value) => value === data.username
+          ) !== undefined
+            ? true
+            : false
+        }
+        username={data.username}
+        followOperation={followOperation}
+        profileImageUrl={data.profileImageUrl}
+      />
+    ));
   }
 
-return <div className="main__container row col-sm-8">{Users}</div>;
+  return (
+    <div className="general__conatiner">
+      {sidebar && (
+        <div className="side__bar">
+          <UserAside
+            username={username}
+            profileImageUrl={profileImageUrl}
+            showSidebar={showSidebar}
+          />
+        </div>
+      )}
+      <div className="main__container row col-sm-8">{Users}</div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({
@@ -44,4 +76,6 @@ const mapStateToProps = (state) => ({
   userInfo: state.user.otherInfo,
 });
 
-export default connect(mapStateToProps, {followOperation,currentUserInfo})(Likes__Reposts);
+export default connect(mapStateToProps, { followOperation, currentUserInfo })(
+  Likes__Reposts
+);

@@ -4,8 +4,9 @@ import User from "../components/User";
 import { apiCall } from "../services/api";
 import { connect } from "react-redux";
 import { followOperation } from "../store/actions/user";
+import UserAside from "../components/UserAside";
 
-function FollowList({ userInfo, followOp, followOperation,currentUser }) {
+function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,showSidebar,username,profileImageUrl }) {
   useEffect(() => {
     apiCall("post", `/api/userops/${userInfo.id}/${followOp}`, {
       username: userInfo.username,
@@ -17,8 +18,7 @@ function FollowList({ userInfo, followOp, followOperation,currentUser }) {
       .catch((err) => {
         console.log(err);
       });
-  },[]);
-
+  }, []);
 
   let [data, setData] = useState({});
 
@@ -29,21 +29,40 @@ function FollowList({ userInfo, followOp, followOperation,currentUser }) {
       <User
         key={index}
         id={currentUser.id}
-        currentUser__username = {currentUser.username}
+        currentUser__username={currentUser.username}
         displayName={data.displayName}
-        isFollowing={userInfo.currentUserFollowing.find(value => (value === data.username)) !== undefined?true:false}
+        isFollowing={
+          userInfo.currentUserFollowing.find(
+            (value) => value === data.username
+          ) !== undefined
+            ? true
+            : false
+        }
         username={data.username}
-        followOperation = {followOperation}
+        followOperation={followOperation}
         profileImageUrl={data.profileImageUrl}
       />
     ));
   }
-  return <div className="main__followContainer row col-sm-8">{Users}</div>;
+  return (
+    <div className="general__container">
+      {sidebar && (
+        <div className="side__bar">
+          <UserAside
+            username={username}
+            profileImageUrl={profileImageUrl}
+            showSidebar={showSidebar}
+          />
+        </div>
+      )}
+      <div className="main__followContainer row col-sm-8">{Users}</div>
+    </div>
+  );
 }
 
 function MapReduxStateToProps(state) {
   return {
-    currentUser:state.currentUser.user,
+    currentUser: state.currentUser.user,
     error: state.errors.message,
   };
 }
@@ -51,4 +70,3 @@ function MapReduxStateToProps(state) {
 export default connect(MapReduxStateToProps, {
   followOperation,
 })(FollowList);
-

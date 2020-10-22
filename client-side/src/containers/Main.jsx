@@ -16,7 +16,7 @@ function Main(props) {
   return (
     <div className="container">
       <Route exact path="/">
-        <Homepage {...props}  currentUser={currentUser} />
+        <Homepage {...props} currentUser={currentUser} />
       </Route>
 
       <Route exact path="/profile">
@@ -41,12 +41,24 @@ function Main(props) {
       </Route>
 
       <Route exact path="/post/:postId/:show">
-        <Likes__Reposts list={props.location.state?.list} op={props.location.state?.ops} id={currentUser.user.id} />
+        <Likes__Reposts
+          {...props}
+          profileImageUrl={currentUser.user.profileImageUrl}
+          username={currentUser.user.username}
+          list={props.location.state?.list}
+          op={props.location.state?.ops}
+          id={currentUser.user.id}
+        />
       </Route>
 
       <Route exact path="/profile/:username/:followOp">
-        <FollowList userInfo={props.location.state?.userInfo} followOp={props.location.state?.followOp} />
-        
+        <FollowList
+          {...props}
+          profileImageUrl={currentUser.user.profileImageUrl}
+          username={currentUser.user.username}
+          userInfo={props.location.state?.userInfo}
+          followOp={props.location.state?.followOp}
+        />
       </Route>
 
       <Route exact path="/signup">
@@ -72,9 +84,11 @@ function Main(props) {
         />
       </Route>
 
-      {window.screen.width<600 && <Route exact path="/search">
-        <Search />
-        </Route>}
+      {window.screen.width < 600 && (
+        <Route exact path="/search">
+          <Search />
+        </Route>
+      )}
 
       <Route path="/users/:id/posts/new" component={withAuth(PostForm)} />
     </div>

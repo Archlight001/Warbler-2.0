@@ -5,7 +5,6 @@ import { fetchCurrentUserPosts } from "../store/actions/posts";
 import { currentUserInfo, followOperation,modifyProfile } from "../store/actions/user";
 import { connect } from "react-redux";
 import { apiCall } from "../services/api";
-import "../css/PostTimeline.css";
 import "../css/PostList.css";
 import Search from "./Search";
 
