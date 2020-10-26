@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 
 export default function PostMedia({ postMedia, stretch }) {
-  let mediaExtension = postMedia.slice(postMedia.lastIndexOf("."));
+  
+  //let mediaExtension = postMedia.slice(postMedia.lastIndexOf("."));
   let mediaType = "image";
 
   const [show, setVal] = useState(false);
@@ -22,7 +23,7 @@ export default function PostMedia({ postMedia, stretch }) {
       ".mpv",
       ".ogg",
       ".avi",
-    ].includes(mediaExtension)
+    ].includes(postMedia.contentType)
   ) {
     mediaType = "video";
   }
@@ -32,7 +33,7 @@ export default function PostMedia({ postMedia, stretch }) {
       {mediaType === "image" ? (
         <img
           onClick={handleClick}
-          src={`http://${postMedia}`}
+          src={`data:${postMedia.contentType};base64,${postMedia.data}`}
           height="250"
           width="400"
           alt=""
@@ -51,7 +52,7 @@ export default function PostMedia({ postMedia, stretch }) {
 
       {show && (
         <div className="enlargeMedia" onClick={handleClick}>
-          <img src={`http://${postMedia}`} alt="Enlarged post" />
+          <img src={`data:${postMedia.contentType};base64,${postMedia.data}`} alt="Enlarged post" />
         </div>
       )}
     </div>

@@ -8,11 +8,12 @@ function MiniSearchResults({
   id,
   displayName,
   username,
-  profileImageUrl,
+  profileImage,
   showFollowButton,
   currentUser,
   followOperation,
 }) {
+
   let [following, setFollowing] = useState(false);
 
   function handleFollow(id, username, e) {
@@ -28,7 +29,7 @@ function MiniSearchResults({
         <div className="user__profile__mini">
           <div className="img__div__mini">
             <img
-              src={`http://${profileImageUrl}` || DefaultProfileImg}
+              src={`data:${profileImage[0].contentType};base64,${profileImage[0].data}` || DefaultProfileImg}
               alt="username"
             />
           </div>

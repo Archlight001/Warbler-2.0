@@ -6,7 +6,7 @@ import DefaultProfileImg from "../images/default-profile-image.jpg";
 import "../css/UserProfile.css";
 
 function UserProfile({
-  profileImageUrl,
+  profileImage,
   followers,
   userInfo,
   modifyProfileInfo,
@@ -47,14 +47,18 @@ function UserProfile({
       showModifyProfile("description");
     }
   };
+  let image = ""
+  if(profileImage !== undefined){
+    image = `data:${profileImage[0]?.contentType};base64,${profileImage[0]?.data}`
+  }
   return (
       <div>
     <li className="list-group-item">
     <div id="profile" style={window.screen.width<600?{"display":"block"}:{}}>
       <div className="profile__img__div">
         <img
-          src={`http://${profileImageUrl}` || DefaultProfileImg}
-          alt="default Image"
+          src={ image || DefaultProfileImg}
+          alt="Profile pic"
         />
       </div>
       <div className="profile-details">

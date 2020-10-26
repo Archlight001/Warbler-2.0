@@ -8,14 +8,14 @@ const postSchema = mongoose.Schema(
       required: true,
       maxlength: 160,
     },
-    postMediaUrl: {
+    postMedia: {
+     type:Array,
+    },
+    likedBy: {
       type: Array,
     },
-    likedBy:{
-      type:Array
-    },
-    repostedBy:{
-      type:Array
+    repostedBy: {
+      type: Array,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

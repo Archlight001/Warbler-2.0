@@ -41,3 +41,8 @@
     from {width: 0px;}
     to {width:150px;}
 }
+
+/* Styles for post form */
+#postForm{
+    width: 100%;
+}

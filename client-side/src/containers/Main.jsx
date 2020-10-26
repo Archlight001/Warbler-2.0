@@ -13,6 +13,7 @@ import FollowList from "./FollowList";
 import Search from "./Search";
 function Main(props) {
   const { authUser, errors, removeError, currentUser } = props;
+  console.log(currentUser);
   return (
     <div className="container">
       <Route exact path="/">
@@ -22,7 +23,7 @@ function Main(props) {
       <Route exact path="/profile">
         <Profile
           {...props}
-          profileImageUrl={currentUser.user.profileImageUrl}
+          profileImage={currentUser.user.profileImage}
           username={currentUser.user.username}
         />
       </Route>
@@ -31,7 +32,7 @@ function Main(props) {
         {props.location.state ? (
           <Profile
             {...props}
-            profileImageUrl={currentUser.user.profileImageUrl}
+            profileImage={currentUser.user.profileImage}
             username={currentUser.user.username}
             otherUser
           />
@@ -43,7 +44,7 @@ function Main(props) {
       <Route exact path="/post/:postId/:show">
         <Likes__Reposts
           {...props}
-          profileImageUrl={currentUser.user.profileImageUrl}
+          profileImage={currentUser.user.profileImage}
           username={currentUser.user.username}
           list={props.location.state?.list}
           op={props.location.state?.ops}
@@ -54,7 +55,7 @@ function Main(props) {
       <Route exact path="/profile/:username/:followOp">
         <FollowList
           {...props}
-          profileImageUrl={currentUser.user.profileImageUrl}
+          profileImage={currentUser.user.profileImage}
           username={currentUser.user.username}
           userInfo={props.location.state?.userInfo}
           followOp={props.location.state?.followOp}

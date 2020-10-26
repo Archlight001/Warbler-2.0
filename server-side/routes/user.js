@@ -8,13 +8,14 @@ const {
   getUserInfo,
   checkFollowing,
   searchUser,
-  fetchRecommendedList,
+  fetchRecommendedList,getProfileImage
 } = require("../handlers/user");
 
 router.post("/following", getFollowing);
 router.post("/followers", getFollowers);
 router.post("/followOp/checkFollowing", checkFollowing);
 router.post("/followOp/:op", followOp);
+router.get("/getProfileImage",getProfileImage)
 router.get("/recommend",fetchRecommendedList);
 router.post("/modifyProfile/:profile", modifyProfile);
 router.post("/search", searchUser);

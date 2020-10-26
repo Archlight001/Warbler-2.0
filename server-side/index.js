@@ -24,7 +24,8 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use("/api/userops/:id",loginRequired, userOpsRoutes);
-app.use("/api/users/:id/posts", loginRequired,ensureCorrectUser, postRoutes);
+app.use("/api/users/:id/posts",postRoutes);
+// loginRequired,ensureCorrectUser,
 
 app.post("/api/posts", loginRequired,async function (req, res, next) {
   try {
@@ -44,6 +45,8 @@ app.post("/api/posts", loginRequired,async function (req, res, next) {
     //     }
     //   }
     // });
+
+  
 
     getTimelinePosts(req.body.id)
       .then((posts) => {

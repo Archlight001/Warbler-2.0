@@ -18,7 +18,7 @@ export default function Homepage({currentUser,sidebar,showSidebar}) {
   }else{
     return (
       <div>
-        <PostTimeline sidebar={sidebar} showSidebar={showSidebar} profileImageUrl ={currentUser.user.profileImageUrl} username={currentUser.user.username} />
+        <PostTimeline sidebar={sidebar} showSidebar={showSidebar} profileImage ={currentUser.user.profileImage} username={currentUser.user.username} />
       </div>
     )
   }

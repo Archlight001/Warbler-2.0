@@ -13,13 +13,14 @@ function Search({ currentUser }) {
   useEffect(() => {
     apiCall("get", `/api/userops/${currentUser}/recommend`)
       .then((values) => {
+        
         setRecommendList(values.map((value, index) => (
           <MiniSearchResults
             key={index}
             id={value._id}
             displayName={value.displayName}
             username={value.username}
-            profileImageUrl={value.profileImageUrl}
+            profileImage={value.profileImage}
             showFollowButton
           />
         )))
@@ -42,7 +43,7 @@ function Search({ currentUser }) {
               id={value._id}
               displayName={value.displayName}
               username={value.username}
-              profileImageUrl={value.profileImageUrl}
+              profileImage={value.profileImage}
             />
           ))
         );

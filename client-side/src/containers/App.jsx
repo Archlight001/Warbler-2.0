@@ -8,13 +8,22 @@ import Navbar from "./Navbar";
 import "../css/App.css";
 import { setAuthorizationToken, setCurrentUser } from "../store/actions/auth";
 import HSFooter from "./HSFooter";
+import { apiCall } from "../services/api";
 
 const store = configureStore();
 
 if (localStorage.jwtToken) {
   setAuthorizationToken(localStorage.jwtToken);
   try {
-    store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+    let tokenData = jwtDecode(localStorage.jwtToken);
+    apiCall("get", `/api/userops/${tokenData.id}/getProfileImage/`)
+      .then((res)=>{
+        store.dispatch(setCurrentUser({...tokenData,profileImage:res.profileImage}));
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    
   } catch (e) {
     store.dispatch(setCurrentUser({}));
   }
@@ -35,15 +44,12 @@ function App() {
             <Navbar sidebar={sidebar} showSidebar={showSidebar} />
           </div>
 
-          <div className={window.screen.width < 600 && "main__component"}>
+          <div className={window.screen.width < 600 ? "main__component" : ""}>
             <Main sidebar={sidebar} showSidebar={showSidebar} />
           </div>
 
           <div className="main__footer__component">
-            {window.screen.width < 600 && (
-              <HSFooter
-              />
-            )}
+            {window.screen.width < 600 && <HSFooter />}
           </div>
         </div>
       </BrowserRouter>

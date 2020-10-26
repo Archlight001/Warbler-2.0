@@ -51,7 +51,7 @@ exports.followOp = async function (req, res, next) {
       firstName,
       following,
       lastName,
-      profileImageUrl,
+      profileImage,
       username,
     } = followUser[0];
     return res.json({
@@ -62,7 +62,7 @@ exports.followOp = async function (req, res, next) {
       firstName,
       following,
       lastName,
-      profileImageUrl,
+      profileImage,
       username,
       currentUserFollowing,
     });
@@ -107,7 +107,7 @@ exports.modifyProfile = async function (req, res, next) {
       username,
       displayName,
       description,
-      profileImageUrl,
+      profileImage,
       following,
     } = user;
 
@@ -116,7 +116,7 @@ exports.modifyProfile = async function (req, res, next) {
       username,
       displayName,
       description,
-      profileImageUrl,
+      profileImage,
       following,
     });
   } catch (error) {
@@ -136,7 +136,7 @@ exports.getUserInfo = async function (req, res, next) {
       username,
       displayName,
       description,
-      profileImageUrl,
+      profileImage,
       following,
     } = user;
 
@@ -145,7 +145,7 @@ exports.getUserInfo = async function (req, res, next) {
       username,
       displayName,
       description,
-      profileImageUrl,
+      profileImage,
       following,
       currentUserFollowing,
     });
@@ -164,7 +164,7 @@ exports.searchUser = async function (req, res, next) {
         {
           username: { $regex: params, $options: "i" },
         },
-        "id username displayName profileImageUrl"
+        "id username displayName profileImage"
       );
 
       if (searchUser[0] !== undefined) {
@@ -181,7 +181,7 @@ exports.searchUser = async function (req, res, next) {
         {
           displayName: { $regex: params, $options: "i" },
         },
-        "id username displayName profileImageUrl"
+        "id username displayName profileImage"
       );
 
       if (searchUser[0] !== undefined) {
@@ -222,7 +222,7 @@ exports.fetchRecommendedList = async function (req, res, next) {
     let getUser = await db.User.findById(currentUserId, "following -_id");
     let getAllUsers = await db.User.find(
       {},
-      "id username displayName profileImageUrl"
+      "id username displayName profileImage"
     );
 
     shuffle(getAllUsers);
@@ -248,3 +248,16 @@ exports.fetchRecommendedList = async function (req, res, next) {
     return next(error);
   }
 };
+
+exports.getProfileImage =async function (req,res,next){
+  let id = req.params.id;
+
+  try {
+    let getUserImage = await db.User.findById(id, "profileImage -_id");
+    return res.json(getUserImage)
+  } catch (error) {
+    return next(error)
+  }
+
+
+}

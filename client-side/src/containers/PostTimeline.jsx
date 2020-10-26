@@ -7,7 +7,7 @@ import Search from "./Search";
 
 export default function PostTimeline({
   username,
-  profileImageUrl,
+  profileImage,
   sidebar,
   showSidebar,
 }) {
@@ -15,13 +15,13 @@ export default function PostTimeline({
     <div>
       <div className="general__container">
         {window.screen.width > 600 ? (
-          <UserAside username={username} profileImageUrl={profileImageUrl} />
+          <UserAside username={username} profileImage={profileImage} />
         ) : (
           sidebar && (
             <div className="side__bar">
               <UserAside
                 username={username}
-                profileImageUrl={profileImageUrl}
+                profileImage={profileImage}
                 showSidebar={showSidebar}
               />
             </div>

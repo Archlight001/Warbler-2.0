@@ -2,12 +2,12 @@ const db = require("../models");
 
 let urlArray = [];
 async function getUrls(){
-    let urls = await db.Post.find({}).select("postMediaUrl -_id");
+    let urls = await db.Post.find({}).select("postMedia -_id");
     let urlArray = [];
     for (let i = 0; i < urls.length; i++) {
-      if (urls[i].postMediaUrl.length !== 0) {
-        for (let j = 0; j < urls[i].postMediaUrl.length; j++) {
-          urlArray.push(urls[i].postMediaUrl[j]);
+      if (urls[i].postMedia.length !== 0) {
+        for (let j = 0; j < urls[i].postMedia.length; j++) {
+          urlArray.push(urls[i].postMedia[j]);
         }
       }
     }

@@ -16,7 +16,9 @@ function PostList(props) {
     if (!props.profile) {
       props.fetchPosts(props.currentUser.id);
     }
-  }, [props.profile,props.posts]);
+  }, [props.profile]);
+
+  //props.posts
 
   const {
     posts,
@@ -38,12 +40,12 @@ function PostList(props) {
       key={index}
       postId={m._id}
       id={m.user._id}
-      currentUserId = {currentUser.id}
+      currentUserId={currentUser.id}
       date={m.createAt}
       text={m.text}
       repostedByList={posts.reposters}
       currentUsername={currentUser.username}
-      postMedia={m.postMediaUrl}
+      postMedia={m.postMedia}
       username={m.user.username}
       repostList={m.repostedBy}
       likeList={m.likedBy}
@@ -65,7 +67,7 @@ function PostList(props) {
         <ul className="list-group" id="posts">
           {profile && (
             <UserProfile
-              profileImageUrl={userInfo.profileImageUrl}
+              profileImage={userInfo.profileImage}
               followers={followers}
               userInfo={userInfo}
               modifyProfileInfo={modifyProfileInfo}

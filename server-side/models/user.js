@@ -30,8 +30,8 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  profileImageUrl: {
-    type: String,
+  profileImage: {
+    type:Array,
     required: true,
     unique: true,
   },

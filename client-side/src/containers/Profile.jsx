@@ -10,7 +10,7 @@ import Search from "./Search";
 
 function Profile({
   username,
-  profileImageUrl,
+  profileImage,
   currentUserInfo,
   fetchCurrentUserPosts,
   currentUser,
@@ -62,14 +62,15 @@ function Profile({
     checkFollowing();
   }
 
+  console.log(profileImage)
   return (
     <div className="general__container">
        {window.screen.width > 600 ? (
-        <UserAside username={username} profileImageUrl={profileImageUrl} />
+        <UserAside username={username} profileImage={profileImage} />
       ) : (
         sidebar && (
           <div className="side__bar">
-            <UserAside username={username} profileImageUrl={profileImageUrl} showSidebar={showSidebar} />
+            <UserAside username={username} profileImage={profileImage} showSidebar={showSidebar} />
           </div>
         )
       )}

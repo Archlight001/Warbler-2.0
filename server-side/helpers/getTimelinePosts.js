@@ -7,26 +7,33 @@ async function getTimelinePosts(currentUserId) {
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })
       .populate("user", { username: true, profileImageUrl: true });
+
     let timelinePosts = [];
-    
-    if(currentUserFollowing.length !== 0){
-      currentUserFollowing.forEach((user) => {
-        for (let i = 0; i < allPosts.length; i++) {
-          if (allPosts[i].user.username === user) {
-            timelinePosts.push(allPosts[i]);
-          } else if (allPosts[i].user.id === currentUserId) {
-            timelinePosts.push(allPosts[i]);
+     
+    try {
+      if(currentUserFollowing.length !== 0){
+        currentUserFollowing.forEach((user) => {
+          for (let i = 0; i < allPosts.length; i++) {
+            if (allPosts[i].user.username === user) {
+              timelinePosts.push(allPosts[i]);
+            } else if (allPosts[i].user.id === currentUserId) {
+              timelinePosts.push(allPosts[i]);
+            }
           }
-        }
-      });
-    }else{
-      allPosts.forEach((post)=>{
-        if (post.user.id === currentUserId) {
-          timelinePosts.push(post);
-        }
-      })
+        });
+      }else{
+        allPosts.forEach((post)=>{
+          if (post.user.id === currentUserId) {
+            timelinePosts.push(post);
+          }
+        })
+      }
+    } catch (error) {
+      console.log(error);
     }
     
+    
+       
 
     let repostedPosts = [];
     let whoReposted = [];
@@ -65,7 +72,7 @@ async function getTimelinePosts(currentUserId) {
       timelinePosts.push(post);
     })
 
-    return [timelinePosts,whoRepostedFilter]
+     return [timelinePosts,whoRepostedFilter]
   } catch (error) {
     return error;
   }
