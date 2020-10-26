@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
 export default function PostMedia({ postMedia, stretch }) {
   let mediaExtension = postMedia.slice(postMedia.lastIndexOf("."));
@@ -37,20 +38,20 @@ export default function PostMedia({ postMedia, stretch }) {
           alt=""
         />
       ) : (
-        <video width="320" height="240" controls >
-            <source src={`http://${postMedia}`}  type="video/mp4"/>
-        </video>
+        <ReactPlayer
+          url={`http://${postMedia}`}
+          width={window.screen.width < 600 ? "150px" : "320px"}
+          height={window.screen.width<600?"100px":"140px"} 
+          controls={true}
+        />
+        // <video width="320" height="240" controls >
+        //     <source src={}  type="video/mp4"/>
+        // </video>
       )}
 
       {show && (
-        <div
-          className="enlargeMedia"
-          onClick={handleClick}
-        >
-           <img
-          src={`http://${postMedia}`}
-          alt="Enlarged post"
-        /> 
+        <div className="enlargeMedia" onClick={handleClick}>
+          <img src={`http://${postMedia}`} alt="Enlarged post" />
         </div>
       )}
     </div>
