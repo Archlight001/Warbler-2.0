@@ -32,8 +32,7 @@ const userSchema = mongoose.Schema({
   },
   profileImage: {
     type:Array,
-    required: true,
-    unique: true,
+    required: true
   },
   following:{
     type:Array

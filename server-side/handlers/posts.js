@@ -101,29 +101,29 @@ exports.deletePost = async function (req, res, next) {
       if (err) {
         return next(err);
       }
-      if (post.postMediaUrl.length > 1 && post.postMediaUrl.length !== 0) {
-        for (let i = 0; i < post.postMediaUrl.length; i++) {
-          fs.unlink(
-            `${process.env.ROOT}/public${post.postMediaUrl[i].slice(
-              post.postMediaUrl[i].indexOf("/")
-            )}`,
-            function () {
-              console.log("File deleted");
-            }
-          );
-        }
-      } else {
-        if (post.postMediaUrl.length !== 0) {
-          fs.unlink(
-            `${process.env.ROOT}/public${post.postMediaUrl[0].slice(
-              post.postMediaUrl[0].indexOf("/")
-            )}`,
-            function () {
-              console.log("File deleted");
-            }
-          );
-        }
-      }
+      // if (post.postMediaUrl.length > 1 && post.postMediaUrl.length !== 0) {
+      //   for (let i = 0; i < post.postMediaUrl.length; i++) {
+      //     fs.unlink(
+      //       `${process.env.ROOT}/public${post.postMediaUrl[i].slice(
+      //         post.postMediaUrl[i].indexOf("/")
+      //       )}`,
+      //       function () {
+      //         console.log("File deleted");
+      //       }
+      //     );
+      //   }
+      // } else {
+      //   if (post.postMediaUrl.length !== 0) {
+      //     fs.unlink(
+      //       `${process.env.ROOT}/public${post.postMediaUrl[0].slice(
+      //         post.postMediaUrl[0].indexOf("/")
+      //       )}`,
+      //       function () {
+      //         console.log("File deleted");
+      //       }
+      //     );
+      //   }
+      // }
       return res.json(post);
     });
   } catch (error) {
@@ -188,8 +188,8 @@ exports.getList = async (req, res, next) => {
     let list = [];
     for (let i = 0; i < req.body.list.length; i++) {
         let findUser = await db.User.find({ username: req.body.list[i] });
-        let {id, username, displayName, profileImageUrl } = findUser[0];
-        list.push({id, username, displayName, profileImageUrl });
+        let {id, username, displayName, profileImage } = findUser[0];
+        list.push({id, username, displayName, profileImage });
     }
     return res.json(list);
   } catch (error) {

@@ -17,7 +17,7 @@ const Likes__Reposts = ({
   currentUserInfo,
   sidebar,
   showSidebar,
-  profileImageUrl,
+  profileImage,
   username,
 }) => {
   useEffect(() => {
@@ -32,6 +32,8 @@ const Likes__Reposts = ({
   }, []);
 
   let [dbList, setList] = useState([]);
+
+  console.log(dbList);
 
   let Users = [];
   if (dbList.length !== undefined) {
@@ -50,7 +52,7 @@ const Likes__Reposts = ({
         }
         username={data.username}
         followOperation={followOperation}
-        profileImageUrl={data.profileImageUrl}
+        profileImage={data.profileImage}
       />
     ));
   }
@@ -61,7 +63,7 @@ const Likes__Reposts = ({
         <div className="side__bar">
           <UserAside
             username={username}
-            profileImageUrl={profileImageUrl}
+            profileImage={profileImage}
             showSidebar={showSidebar}
           />
         </div>

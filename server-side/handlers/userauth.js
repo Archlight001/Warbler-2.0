@@ -10,7 +10,6 @@ exports.signin = async function (req, res, next) {
     let {
       id,
       username,
-      profileImage,
     } = user;
     let isMatch = await user.comparePasswords(req.body.password);
     if (isMatch) {
@@ -21,7 +20,6 @@ exports.signin = async function (req, res, next) {
       return res.status(200).json({
         id,
         username,
-        profileImage,
         token,
       });
     } else {
@@ -65,6 +63,7 @@ exports.signup = async function (req, res, next) {
 
     //Create new User document
     let user = await db.User.create(newUser);
+
     //Move image to location
     // image.mv(`${process.env.ROOT}/public/uploads/${newImageName}`, function (
     //   err
@@ -98,7 +97,6 @@ exports.signup = async function (req, res, next) {
     let {
       id,
       username,
-      profileImage,
     } = user;
     let token = jwt.sign(
       {
@@ -111,13 +109,14 @@ exports.signup = async function (req, res, next) {
     return res.status(200).json({
       id,
       username,
-      profileImage,
       token,
     });
+
+    
   } catch (error) {
-    if (error.code === 11000) {
-      error.message = "Sorry that username and/or email is taken";
-    }
+    // if (error.code === 11000) {
+    //   error.message = "Sorry that username and/or email is taken";
+    // }
     return next({
       status: 400,
       message: error.message,

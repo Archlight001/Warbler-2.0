@@ -62,7 +62,6 @@ function Profile({
     checkFollowing();
   }
 
-  console.log(profileImage)
   return (
     <div className="general__container">
        {window.screen.width > 600 ? (

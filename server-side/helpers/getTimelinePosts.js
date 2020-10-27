@@ -6,7 +6,7 @@ async function getTimelinePosts(currentUserId) {
     let currentUserFollowing = currentUser.following;
     let allPosts = await db.Post.find()
       .sort({ createdAt: "desc" })
-      .populate("user", { username: true, profileImageUrl: true });
+      .populate("user", { username: true, profileImage: true });
 
     let timelinePosts = [];
      

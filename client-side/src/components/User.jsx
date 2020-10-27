@@ -5,7 +5,7 @@ import DefaultProfileImg from "../images/default-profile-image.jpg";
 function User({
   displayName,
   username,
-  profileImageUrl,
+  profileImage,
   isFollowing,
   followOperation,
   id,
@@ -22,7 +22,7 @@ function User({
       <div className="user__profile">
         <div className="img__div">
           <img
-            src={`http://${profileImageUrl}` || DefaultProfileImg}
+            src={`data:${profileImage[0].contentType};base64,${profileImage[0].data}` || DefaultProfileImg}
             alt={username}
           />
         </div>

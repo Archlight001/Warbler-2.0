@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "../store";
@@ -8,29 +8,36 @@ import Navbar from "./Navbar";
 import "../css/App.css";
 import { setAuthorizationToken, setCurrentUser } from "../store/actions/auth";
 import HSFooter from "./HSFooter";
-import { apiCall } from "../services/api";
+
 
 const store = configureStore();
 
-if (localStorage.jwtToken) {
-  setAuthorizationToken(localStorage.jwtToken);
-  try {
-    let tokenData = jwtDecode(localStorage.jwtToken);
-    apiCall("get", `/api/userops/${tokenData.id}/getProfileImage/`)
-      .then((res)=>{
-        store.dispatch(setCurrentUser({...tokenData,profileImage:res.profileImage}));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    
-  } catch (e) {
-    store.dispatch(setCurrentUser({}));
-  }
-}
+
 
 function App() {
   var [sidebar, setSidebar] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.jwtToken) {
+      setAuthorizationToken(localStorage.jwtToken);
+      try {
+        // let tokenData = jwtDecode(localStorage.jwtToken);
+        // apiCall("get", `/api/userops/${tokenData.id}/getProfileImage/`)
+        //   .then((res)=>{
+        //     store.dispatch(setCurrentUser({...tokenData,profileImage:res.profileImage}));
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
+  
+        store.dispatch(setCurrentUser(jwtDecode(localStorage.jwtToken)));
+      } catch (e) {
+        console.log(e);
+        store.dispatch(setCurrentUser({}));
+      }
+    }
+  }, []);
+
 
   function showSidebar() {
     setSidebar(!sidebar);

@@ -12,7 +12,7 @@ export default function PostItem({
   currentUserId,
   postId,
   date,
-  profileImageUrl,
+  profileImage,
   text,
   postMedia,
   currentUsername,
@@ -78,7 +78,7 @@ export default function PostItem({
     <div>
       <li className="list-group-item">
         <img
-          src={`http://${profileImageUrl}` || DefaultProfileImg}
+          src={`data:${profileImage[0].contentType};base64,${profileImage[0].data}` || DefaultProfileImg}
           alt={username}
           height="100"
           width="100"

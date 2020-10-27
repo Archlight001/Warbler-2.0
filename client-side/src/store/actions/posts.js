@@ -12,10 +12,10 @@ export const remove = (id) => ({
   id,
 });
 
-export const addPost = (post) =>({
-  type:ADD_POST,
-  post
-})
+export const addPost = (post) => ({
+  type: ADD_POST,
+  post,
+});
 
 export const removePost = (user_id, post_id) => {
   return (dispatch) => {
@@ -35,9 +35,11 @@ export const fetchPosts = (id) => {
   };
 };
 
-export const fetchCurrentUserPosts = (user_id,currentUserId) => {
+export const fetchCurrentUserPosts = (user_id, currentUserId) => {
   return (dispatch) => {
-    return apiCall("post", `/api/users/${currentUserId}/posts/otheruserposts`,{id:user_id})
+    return apiCall("post", `/api/users/${currentUserId}/posts/otheruserposts`, {
+      id: user_id,
+    })
       .then((res) => {
         dispatch(loadPosts(res));
       })
@@ -78,5 +80,3 @@ export const repost__op = (postId, user, id, op) => {
       .catch((err) => dispatch(addError(err.message)));
   };
 };
-
-

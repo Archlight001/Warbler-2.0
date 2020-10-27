@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, withRouter, Redirect } from "react-router-dom";
 import Authform from "../components/Authform";
 import Homepage from "../components/Homepage";
 import Likes__Reposts from "./Likes__Reposts";
 import Profile from "./Profile";
-import { authUser } from "../store/actions/auth";
+import { authUser,setCurrentUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth, { withId } from "../hocs/withAuth";
 import PostForm from "../components/PostForm";
 import FollowList from "./FollowList";
 import Search from "./Search";
+import { apiCall } from "../services/api";
 function Main(props) {
-  const { authUser, errors, removeError, currentUser } = props;
-  console.log(currentUser);
+  const { authUser, errors, removeError, currentUser,setCurrentUser } = props;
+  useEffect(() => {
+    if (props.currentUser.isAuthenticated === true) {
+      try {
+        apiCall(
+          "get",
+          `/api/userops/${props.currentUser.user.id}/getProfileImage/`
+        )
+          .then((res) => {
+            setCurrentUser({
+                ...props.currentUser.user,
+                profileImage: res.profileImage,
+              },
+            );
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [props.currentUser.isAuthenticated]);
+
   return (
     <div className="container">
       <Route exact path="/">
@@ -91,7 +114,10 @@ function Main(props) {
         </Route>
       )}
 
-      <Route path="/users/:id/posts/new" component={withAuth(PostForm,props)} />
+      <Route
+        path="/users/:id/posts/new"
+        component={withAuth(PostForm, props)}
+      />
     </div>
   );
 }
@@ -104,5 +130,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError })(Main)
+  connect(mapStateToProps, { authUser, removeError,setCurrentUser })(Main)
 );

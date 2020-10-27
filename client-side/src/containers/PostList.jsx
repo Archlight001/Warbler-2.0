@@ -16,7 +16,7 @@ function PostList(props) {
     if (!props.profile) {
       props.fetchPosts(props.currentUser.id);
     }
-  }, [props.profile]);
+  }, [props.profile,props.posts]);
 
   //props.posts
 
@@ -35,6 +35,7 @@ function PostList(props) {
     repost__op,
   } = props;
 
+
   let postList = posts.posts.map((m, index) => (
     <PostItem
       key={index}
@@ -51,7 +52,7 @@ function PostList(props) {
       likeList={m.likedBy}
       isLiked={m.likedBy.find((user) => currentUser.username === user)}
       isReposted={m.repostedBy.find((user) => currentUser.username === user)}
-      profileImageUrl={m.user.profileImageUrl}
+      profileImage={m.user.profileImage}
       noOfLikes={m.likedBy.length}
       noOfReposts={m.repostedBy.length}
       like__unlikePosts={like__unlikePosts}
