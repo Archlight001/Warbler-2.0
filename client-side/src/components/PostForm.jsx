@@ -21,7 +21,7 @@ function PostForm(props) {
         <div className="side__bar">
           <UserAside
             username={props.currentUser.user.username}
-            profileImageUrl={props.currentUser.user.profileImageUrl}
+            profileImage={props.currentUser.user.profileImage}
             showSidebar={props.showSidebar}
           />
         </div>

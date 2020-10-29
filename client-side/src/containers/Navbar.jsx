@@ -1,14 +1,16 @@
 import React from "react";
 import "../css/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link,useHistory} from "react-router-dom";
 import Logo from "../images/warbler-logo.png";
 import { connect } from "react-redux";
 import { logout } from "../store/actions/auth";
 
 function Navbar({ currentUser, logout: backtoHome, showSidebar, sidebar }) {
+  const history = useHistory();
   function logout(e) {
     e.preventDefault();
     backtoHome();
+    history.replace("/");
   }
   var screen_width = window.screen.width;
   var change = sidebar === true ? "change" : "";

@@ -4,8 +4,9 @@ import { apiCall } from "../services/api";
 import MiniSearchResults from "../components/MiniSearchResults";
 import "../css/Search.css";
 import { connect } from "react-redux";
+import UserAside from "../components/UserAside";
 
-function Search({ currentUser }) {
+function Search({ currentUser,sidebar,showSidebar,username,profileImage }) {
   let [param, setParam] = useState("");
   let [searchValues, setSearchValues] = useState([]);
   let [recommendList, setRecommendList] = useState([]);
@@ -13,22 +14,23 @@ function Search({ currentUser }) {
   useEffect(() => {
     apiCall("get", `/api/userops/${currentUser}/recommend`)
       .then((values) => {
-        
-        setRecommendList(values.map((value, index) => (
-          <MiniSearchResults
-            key={index}
-            id={value._id}
-            displayName={value.displayName}
-            username={value.username}
-            profileImage={value.profileImage}
-            showFollowButton
-          />
-        )))
+        setRecommendList(
+          values.map((value, index) => (
+            <MiniSearchResults
+              key={index}
+              id={value._id}
+              displayName={value.displayName}
+              username={value.username}
+              profileImage={value.profileImage}
+              showFollowButton
+            />
+          ))
+        );
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [currentUser]);
 
   function handleChange(e) {
     setParam(e.target.value);
@@ -53,28 +55,39 @@ function Search({ currentUser }) {
       });
   }
 
-  
   return (
-    <div>
-      <div className="search">
-        <div className="search__container">
-          <input
-            value={param}
-            onChange={handleChange}
-            type="text"
-            placeholder="Search"
+    <div className="general__container">
+      {sidebar && (
+        <div className="side__bar">
+          <UserAside
+            username={username}
+            profileImage={profileImage}
+            showSidebar={showSidebar}
           />
-          <div className="search__icon">
-            <SearchIcon />
-          </div>
         </div>
-        {searchValues.length !== 0 && (
-          <div className="results__container">{searchValues}</div>
-        )}
-      </div>
-      <div className="recommended__list">
-        <h6 id="rc__header">RECOMMENDED LIST</h6>
-        {recommendList}
+      )}
+
+      <div style={{ width: "100%" }}>
+        <div className="search">
+          <div className="search__container">
+            <input
+              value={param}
+              onChange={handleChange}
+              type="text"
+              placeholder="Search"
+            />
+            <div className="search__icon">
+              <SearchIcon />
+            </div>
+          </div>
+          {searchValues.length !== 0 && (
+            <div className="results__container">{searchValues}</div>
+          )}
+        </div>
+        <div className="recommended__list">
+          <h6 id="rc__header">RECOMMENDED LIST</h6>
+          {recommendList}
+        </div>
       </div>
     </div>
   );

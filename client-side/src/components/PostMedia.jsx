@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 
 export default function PostMedia({ postMedia, stretch }) {
-  
   //let mediaExtension = postMedia.slice(postMedia.lastIndexOf("."));
   let mediaType = "image";
 
@@ -14,15 +13,15 @@ export default function PostMedia({ postMedia, stretch }) {
 
   if (
     [
-      ".mp4",
-      ".webm",
-      ".mpg",
-      ".mp2",
-      ".mpeg",
-      ".mpe",
-      ".mpv",
-      ".ogg",
-      ".avi",
+      "video/mp4",
+      "video/webm",
+      "video/mpg",
+      "video/mp2",
+      "video/mpeg",
+      "video/mpe",
+      "video/mpv",
+      "video/ogg",
+      "video/avi",
     ].includes(postMedia.contentType)
   ) {
     mediaType = "video";
@@ -40,19 +39,25 @@ export default function PostMedia({ postMedia, stretch }) {
         />
       ) : (
         <ReactPlayer
-          url={`http://${postMedia}`}
+          url={`data:${postMedia.contentType};base64,${postMedia.data}`}
           width={window.screen.width < 600 ? "150px" : "320px"}
-          height={window.screen.width<600?"100px":"140px"} 
+          height={window.screen.width<600?"100px":"140px"}
           controls={true}
         />
-        // <video width="320" height="240" controls >
-        //     <source src={}  type="video/mp4"/>
+        // <video width="320" height="240" controls>
+        //   <source
+        //     src={mediaURL}
+        //     type="video/mp4"
+        //   />
         // </video>
       )}
 
       {show && (
         <div className="enlargeMedia" onClick={handleClick}>
-          <img src={`data:${postMedia.contentType};base64,${postMedia.data}`} alt="Enlarged post" />
+          <img
+            src={`data:${postMedia.contentType};base64,${postMedia.data}`}
+            alt="Enlarged post"
+          />
         </div>
       )}
     </div>

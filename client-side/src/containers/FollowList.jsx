@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { followOperation } from "../store/actions/user";
 import UserAside from "../components/UserAside";
 
-function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,showSidebar,username,profileImageUrl }) {
+function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,showSidebar,username,profileImage }) {
   useEffect(() => {
     apiCall("post", `/api/userops/${userInfo.id}/${followOp}`, {
       username: userInfo.username,
@@ -21,6 +21,8 @@ function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,s
   }, []);
 
   let [data, setData] = useState({});
+
+  console.log(data);
 
   let Users = [];
 
@@ -40,7 +42,7 @@ function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,s
         }
         username={data.username}
         followOperation={followOperation}
-        profileImageUrl={data.profileImageUrl}
+        profileImage={data.profileImage}
       />
     ));
   }
@@ -50,7 +52,7 @@ function FollowList({ userInfo, followOp, followOperation, currentUser,sidebar,s
         <div className="side__bar">
           <UserAside
             username={username}
-            profileImageUrl={profileImageUrl}
+            profileImage={profileImage}
             showSidebar={showSidebar}
           />
         </div>

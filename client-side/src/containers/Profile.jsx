@@ -28,7 +28,8 @@ function Profile({
       currentUserInfo(currentUser.id,currentUser.id);
       fetchCurrentUserPosts(location.state?.userId || currentUser.id,currentUser.id);
     }
-  }, []);
+  }, [currentUser,location.state?.userId]);
+
 
   let [followers, getFollowers] = useState(0);
   let [isFollowing, setFollowing] = useState(false);

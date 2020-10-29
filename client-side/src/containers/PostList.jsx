@@ -35,7 +35,6 @@ function PostList(props) {
     repost__op,
   } = props;
 
-
   let postList = posts.posts.map((m, index) => (
     <PostItem
       key={index}
@@ -78,7 +77,17 @@ function PostList(props) {
               currentUser={currentUser}
             />
           )}
-          {postList}
+          {postList.length === 0 && profile === undefined ? (
+            <div className="default__text__container">
+            <h5>
+              Your Timeline is empty, Make a new post or follow someone to
+              populate it
+            </h5>
+            </div>
+          ) : (
+            postList
+          )}
+          {/* {postList} */}
         </ul>
       </div>
     </div>

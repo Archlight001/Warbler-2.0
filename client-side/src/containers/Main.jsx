@@ -5,15 +5,16 @@ import Authform from "../components/Authform";
 import Homepage from "../components/Homepage";
 import Likes__Reposts from "./Likes__Reposts";
 import Profile from "./Profile";
-import { authUser,setCurrentUser } from "../store/actions/auth";
+import { authUser, setCurrentUser } from "../store/actions/auth";
 import { removeError } from "../store/actions/errors";
 import withAuth, { withId } from "../hocs/withAuth";
 import PostForm from "../components/PostForm";
 import FollowList from "./FollowList";
 import Search from "./Search";
 import { apiCall } from "../services/api";
+
 function Main(props) {
-  const { authUser, errors, removeError, currentUser,setCurrentUser } = props;
+  const { authUser, errors, removeError, currentUser, setCurrentUser } = props;
   useEffect(() => {
     if (props.currentUser.isAuthenticated === true) {
       try {
@@ -23,10 +24,9 @@ function Main(props) {
         )
           .then((res) => {
             setCurrentUser({
-                ...props.currentUser.user,
-                profileImage: res.profileImage,
-              },
-            );
+              ...props.currentUser.user,
+              profileImage: res.profileImage,
+            });
           })
           .catch((e) => {
             console.log(e);
@@ -110,7 +110,11 @@ function Main(props) {
 
       {window.screen.width < 600 && (
         <Route exact path="/search">
-          <Search />
+          <Search
+            {...props}
+            profileImage={currentUser.user.profileImage}
+            username={currentUser.user.username}
+          />
         </Route>
       )}
 
@@ -130,5 +134,5 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { authUser, removeError,setCurrentUser })(Main)
+  connect(mapStateToProps, { authUser, removeError, setCurrentUser })(Main)
 );

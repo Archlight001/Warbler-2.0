@@ -8,7 +8,6 @@ const userOpsRoutes = require("./routes/user");
 const postRoutes = require("./routes/posts");
 const bodyParser = require("body-parser");
 const upload = require("express-fileupload");
-const db = require("./models");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const app = express();
@@ -24,8 +23,7 @@ app.use(upload());
 
 app.use("/api/userauth", userauthRoutes);
 app.use("/api/userops/:id",loginRequired, userOpsRoutes);
-app.use("/api/users/:id/posts",postRoutes);
-// loginRequired,ensureCorrectUser,
+app.use("/api/users/:id/posts",loginRequired,ensureCorrectUser,postRoutes);
 
 app.post("/api/posts", loginRequired,async function (req, res, next) {
   try {

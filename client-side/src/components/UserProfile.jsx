@@ -152,8 +152,9 @@ function UserProfile({
       </div>
 
       {!sameUser && (
-        <div className="follow__btn">
+        <div style={window.screen.width<600?{"width":"100%"}:{}} className="follow__btn">
           <button
+            style={window.screen.width<600?{"width":"100%"}:{}} 
             onClick={followOperation.bind(
               this,
               currentUser.id,

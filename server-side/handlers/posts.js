@@ -8,11 +8,11 @@ const binary = mongodb.Binary;
 
 exports.createPost = async function (req, res, next) {
   try {
-    let hostname = req.headers.host;
+    //let hostname = req.headers.host;
 
     let mediaFiles = [];
-    let mediaName = "";
-    let mediaNames = [];
+    // let mediaName = "";
+    // let mediaNames = [];
 
     if (req.files) {
       let media = req.files.media;
