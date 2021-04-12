@@ -1,0 +1,34 @@
+{
+	"currentUser": { "username": "Kel-El", "profileImage": "profilepic.jpg" },
+	"posts": [
+		{
+			"no": "1",
+			"username": "Kel-El",
+			"profileImage": "profilepic.jpg",
+			"post": "Fuck you all",
+			"date": "26/01/2020",
+			"reposts": "59",
+			"likes": "25",
+			"medias": [],
+			"showDelete": true
+		},
+		{
+			"no": "2",
+			"username": "Kel-El",
+			"profileImage": "profilepic.jpg",
+			"post": "Here are the images you fuckers",
+			"date": "26/01/2020",
+			"reposts": "59",
+			"likes": "25",
+			"medias": ["profilepic.jpg", "profilepic.jpg"],
+			"showDelete": false
+		}
+	],
+	"recommend": [
+		{
+			"displayName": "Samson",
+			"username": "sam234",
+			"profileImage": "profilepic.jpg"
+		}
+	]
+}

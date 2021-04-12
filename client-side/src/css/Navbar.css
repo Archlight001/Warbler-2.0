@@ -1,60 +1,65 @@
 .navbar {
-    margin-bottom: 1rem;
-    background: rgb(116, 205, 255);
-    background: radial-gradient(
-      circle,
-      rgba(116, 205, 255, 1) 15%,
-      rgba(114, 215, 151, 1) 90%
-    );
-    background-size: 100% 100%;
-    position:sticky;
-    z-index: 10;
-  }
-  
-  .navbar a {
-    color: white;
-    font-weight: bold;
-  }
-  
-  .navbar a:hover {
-    color: white;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  
-  .navbar-brand > img {
-    display: inline-block;
-    width: 20px;
-    margin-bottom: 2px;
-    margin-right: 5px;
-    border-radius: 2px;
-  }
-  
-  ul.nav.navbar-nav li {
-    margin: 0 0.5rem;
-  }
+	margin-bottom: 1rem;
+	background: rgb(116, 205, 255);
+	background: radial-gradient(
+		circle,
+		rgba(116, 205, 255, 1) 15%,
+		rgba(114, 215, 151, 1) 90%
+	);
+	background-size: 100% 100%;
+	position: sticky;
+	z-index: 10;
+}
 
-  .hamburger__div div{
-    height: 2px;
-    width: 17px;
-    transition: 0.4s;
-    background-color: lightyellow;
-    margin-bottom: 2px;
-  }
+.navbar a {
+	color: white;
+	font-weight: bold;
+}
 
-  .change .bar1 {
-  -webkit-transform: rotate(-45deg) translate(-9px, 4.5px);
-  transform: rotate(-45deg) translate(-9px, 4.5px);
+.navbar a:hover {
+	color: white;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.navbar-brand > img {
+	display: inline-block;
+	width: 20px;
+	margin-bottom: 2px;
+	margin-right: 5px;
+	border-radius: 2px;
+}
+
+ul.nav.navbar-nav li {
+	margin: 0 0.5rem;
+}
+
+.hamburger__div div {
+	height: 2px;
+	width: 17px;
+	transition: 0.4s;
+	background-color: lightyellow;
+	margin-bottom: 2px;
+}
+
+.change .bar1 {
+	-webkit-transform: rotate(-45deg) translate(-9px, 4.5px);
+	transform: rotate(-45deg) translate(-9px, 4.5px);
 }
 
 .change .bar2 {
-  opacity: 0;
+	opacity: 0;
 }
 
 .change .bar3 {
-  -webkit-transform: rotate(45deg) translate(-1px, 3px);
-  transform: rotate(45deg) translate(-1px, 3px);
+	-webkit-transform: rotate(45deg) translate(-1px, 3px);
+	transform: rotate(45deg) translate(-1px, 3px);
 }
-  
 
- 
+.demo__button a {
+	color: red;
+}
+
+.demo__button a:hover {
+	color: grey;
+}
