@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Navbar.css";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../images/warbler-logo.png";
@@ -21,10 +21,14 @@ function Navbar({
 	var screen_width = window.screen.width;
 	var change = sidebar === true ? "change" : "";
 
-	var demoPage = false;
-	if (history.location.pathname === "/demo") {
-		demoPage = true;
-	}
+	var [demoPage, isDemoPage] = useState(false);
+	useEffect(() => {
+		if (history.location.pathname === "/demo") {
+			isDemoPage(!demoPage);
+		}
+	}, [history]);
+
+	console.log(history.location.pathname);
 	return (
 		<div>
 			<nav className="navbar navbar-expand">
@@ -37,7 +41,13 @@ function Navbar({
 								<div className="bar3"></div>
 							</div>
 						) : (
-							<Link to="/" className="navbar-brand">
+							<Link
+								to="/"
+								className="navbar-brand"
+								onClick={() => {
+									isDemoPage(!demoPage);
+								}}
+							>
 								<img src={Logo} alt="Warbler Home" />
 							</Link>
 						)}
@@ -54,10 +64,15 @@ function Navbar({
 							</li>
 						</ul>
 					) : (
-						<ul className="nav navbar-nav navbar-right">
+						<div>
 							{!demoPage ? (
-								<div>
-									<li className="demo__button">
+								<ul className="nav navbar-nav navbar-right">
+									<li
+										className="demo__button"
+										onClick={() => {
+											isDemoPage(!demoPage);
+										}}
+									>
 										<Link to={{ pathname: "/demo", state: { demo: true } }}>
 											Demo
 										</Link>
@@ -68,11 +83,13 @@ function Navbar({
 									<li>
 										<Link to="/signin">Log in</Link>
 									</li>
-								</div>
+								</ul>
 							) : (
-								<li>Warbler Demo Page</li>
+								<ul className="nav navbar-nav navbar-right">
+									<li>Warbler Demo Page</li>
+								</ul>
 							)}
-						</ul>
+						</div>
 					)}
 				</div>
 			</nav>

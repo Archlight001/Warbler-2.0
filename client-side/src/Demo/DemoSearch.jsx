@@ -40,7 +40,7 @@ function DemoSearch({ recommend }) {
 			<div style={{ width: "100%" }}>
 				<div className="search">
 					<div className="search__container">
-						<input value={param} type="text" placeholder="Search" />
+						<input type="text" placeholder="Search" />
 						<div className="search__icon">
 							<SearchIcon />
 						</div>

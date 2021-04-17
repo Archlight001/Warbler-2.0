@@ -5,7 +5,7 @@
 			"no": "1",
 			"username": "Kel-El",
 			"profileImage": "profilepic.jpg",
-			"post": "Fuck you all",
+			"post": "Today's gonna be a great day",
 			"date": "26/01/2020",
 			"reposts": "59",
 			"likes": "25",
@@ -14,21 +14,37 @@
 		},
 		{
 			"no": "2",
+			"username": "sam234",
+			"profileImage": "samson.png",
+			"post": "This is me on my trip to omaha",
+			"date": "29/01/2020",
+			"reposts": "129",
+			"likes": "64",
+			"medias": ["oh1.jpg", "oh2.jpg"],
+			"showDelete": false
+		},
+		{
+			"no": "3",
 			"username": "Kel-El",
 			"profileImage": "profilepic.jpg",
-			"post": "Here are the images you fuckers",
-			"date": "26/01/2020",
-			"reposts": "59",
-			"likes": "25",
-			"medias": ["profilepic.jpg", "profilepic.jpg"],
-			"showDelete": false
+			"post": "Favorite Anime ever",
+			"date": "04/02/2020",
+			"reposts": "23",
+			"likes": "72",
+			"medias": ["anime.png"],
+			"showDelete": true
 		}
 	],
 	"recommend": [
 		{
 			"displayName": "Samson",
 			"username": "sam234",
-			"profileImage": "profilepic.jpg"
+			"profileImage": "samson.png"
+		},
+		{
+			"displayName": "Jason Dement",
+			"username": "jtee24",
+			"profileImage": "jason.jpg"
 		}
 	]
 }

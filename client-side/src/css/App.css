@@ -47,3 +47,13 @@
 #postForm{
     width: 100%;
 }
+
+.loader{
+  display:flex;
+	justify-content:center;
+	align-items:center;
+	position:absolute;
+	width:95%;
+	height:90%;
+	z-index: 1;
+}
