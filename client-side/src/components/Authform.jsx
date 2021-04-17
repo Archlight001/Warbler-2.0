@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import BounceLoader from "react-spinners/BounceLoader";
-import { css } from "@emotion/core";
 
 export default function Authform({
 	signup,
@@ -14,22 +13,23 @@ export default function Authform({
 }) {
 	let [loading, setLoading] = useState(false);
 	const { register, handleSubmit, errors } = useForm();
-	
+
 	function onSubmit(data) {
 		setLoading(true);
 		const formData = new FormData(document.getElementById("form"));
 		// formData.append("profile_pic",data.profile_pic[0]);
 		// formData.append("username",data.username);
 		const authType = signup ? "signup" : "signin";
+
 		onAuth(authType, formData)
-      .then(() => {
-				setLoading(false)
-        history.push("/");
-      })
-      .catch(() => {
+			.then(() => {
 				setLoading(false);
-        return;
-      });
+				history.push("/");
+			})
+			.catch((e) => {
+				setLoading(false);
+				return;
+			});
 	}
 
 	//Remove any error message when component is re-rendered
@@ -49,11 +49,7 @@ export default function Authform({
 		<div>
 			{loading && (
 				<div className="loader">
-					<BounceLoader
-						color="#36D7B7"
-						loading={loading}
-						size={80}
-					/>
+					<BounceLoader color="#36D7B7" loading={loading} size={80} />
 				</div>
 			)}
 			<div>
